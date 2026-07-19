@@ -1,5 +1,6 @@
 ---
 import { render, type CollectionEntry } from 'astro:content';
+import AutoAccordion from '../../components/AutoAccordion.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import TagList from '../../components/TagList.astro';
 import { formatDate, getPublishedAdvice } from '../../lib/content';
@@ -30,9 +31,9 @@ const { Content } = await render(entry);
       <p class="article-header__summary">{entry.data.summary}</p>
       <TagList tags={entry.data.tags} />
     </header>
-    <div class="prose">
+    <AutoAccordion>
       <Content />
-    </div>
+    </AutoAccordion>
     <a class="back-link" href={withBase('/advice/')}>← Advice一覧へ戻る</a>
   </article>
 </BaseLayout>
