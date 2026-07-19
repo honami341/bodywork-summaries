@@ -1,0 +1,30 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ContentCard from '../../components/ContentCard.astro';
+import { getPublishedWorkshops } from '../../lib/content';
+import { withBase } from '../../lib/url';
+
+const entries = await getPublishedWorkshops();
+---
+
+<BaseLayout title="Workshop Summary" description="ワークショップや講座の記録一覧。">
+  <header class="page-header container">
+    <p class="eyebrow">Workshop Summary</p>
+    <h1>ワークショップの記録</h1>
+    <p>講座で扱ったテーマや、実際に行ったことをまとめています。</p>
+  </header>
+  <section class="container section" aria-label="ワークショップ一覧">
+    <div class="card-list">
+      {entries.map((entry) => (
+        <ContentCard
+          href={withBase(`/workshops/${entry.data.slug}/`)}
+          kind="Workshop"
+          title={entry.data.title}
+          date={entry.data.date}
+          summary={entry.data.summary}
+          tags={entry.data.tags}
+        />
+      ))}
+    </div>
+  </section>
+</BaseLayout>

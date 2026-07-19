@@ -1,0 +1,42 @@
+---
+import SiteHeader from '../components/SiteHeader.astro';
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = 'Bodywork Summary Library',
+  description = '身体の動きを理解するための、ワークショップとアドバイスの記録。',
+} = Astro.props;
+
+const pageTitle = title === 'Bodywork Summary Library'
+  ? title
+  : `${title} | Bodywork Summary Library`;
+---
+
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="description" content={description} />
+    <meta name="generator" content={Astro.generator} />
+    <link rel="icon" type="image/svg+xml" href={`${import.meta.env.BASE_URL}favicon.svg`} />
+    <title>{pageTitle}</title>
+  </head>
+  <body>
+    <SiteHeader />
+    <main class="site-main">
+      <slot />
+    </main>
+    <footer class="site-footer">
+      <div class="container">
+        <p>Bodywork Summary Library</p>
+        <p class="site-footer__note">公開用の記録には、個人を特定できる情報を保存しません。</p>
+      </div>
+    </footer>
+  </body>
+</html>

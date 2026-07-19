@@ -1,0 +1,30 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ContentCard from '../../components/ContentCard.astro';
+import { getPublishedAdvice } from '../../lib/content';
+import { withBase } from '../../lib/url';
+
+const entries = await getPublishedAdvice();
+---
+
+<BaseLayout title="Advice Summary" description="身体の使い方について共有したアドバイスの記録一覧。">
+  <header class="page-header container">
+    <p class="eyebrow">Advice Summary</p>
+    <h1>アドバイスの記録</h1>
+    <p>身体の使い方について共有した要点を、匿名の記録としてまとめています。</p>
+  </header>
+  <section class="container section" aria-label="アドバイス一覧">
+    <div class="card-list">
+      {entries.map((entry) => (
+        <ContentCard
+          href={withBase(`/advice/${entry.data.slug}/`)}
+          kind="Advice"
+          title={entry.data.title}
+          date={entry.data.date}
+          summary={entry.data.summary}
+          tags={entry.data.tags}
+        />
+      ))}
+    </div>
+  </section>
+</BaseLayout>
