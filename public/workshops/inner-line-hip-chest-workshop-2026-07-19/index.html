@@ -1,0 +1,375 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="足裏の内側から股関節・胸郭へつなぐ体操ワークショップのアコーディオンサマリー" />
+  <title>足裏の内側から股関節・胸郭へつなぐ体操ワークショップ</title>
+  <style>
+    :root {
+      --paper: #f7f4ee;
+      --panel: #fffdf8;
+      --ink: #2e2a25;
+      --muted: #746c62;
+      --amber: #c98a3d;
+      --amber-soft: #f0e1cc;
+      --line: #ded6ca;
+      --shadow: 0 14px 36px rgba(63, 49, 34, 0.09);
+    }
+
+    * { box-sizing: border-box; }
+
+    html { background: var(--paper); }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 18% 0%, rgba(201, 138, 61, 0.10), transparent 32rem),
+        var(--paper);
+      font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Yu Gothic", "Noto Sans JP", sans-serif;
+      line-height: 1.8;
+    }
+
+    main {
+      width: min(760px, calc(100% - 28px));
+      margin: 0 auto;
+      padding: 34px 0 72px;
+    }
+
+    .eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      margin: 0 0 12px;
+      color: var(--amber);
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+    }
+
+    .eyebrow::before {
+      width: 9px;
+      height: 9px;
+      border-radius: 999px;
+      background: var(--amber);
+      content: "";
+      box-shadow: 0 0 0 6px rgba(201, 138, 61, 0.12);
+    }
+
+    h1 {
+      margin: 0;
+      max-width: 680px;
+      font-family: "Yu Mincho", "Hiragino Mincho ProN", serif;
+      font-size: clamp(1.75rem, 7vw, 2.9rem);
+      line-height: 1.35;
+      letter-spacing: 0.015em;
+    }
+
+    .lead {
+      margin: 22px 0 30px;
+      padding: 18px 20px;
+      border-left: 4px solid var(--amber);
+      border-radius: 0 16px 16px 0;
+      background: rgba(255, 253, 248, 0.76);
+      color: #514a42;
+      box-shadow: 0 8px 22px rgba(63, 49, 34, 0.05);
+    }
+
+    .accordion {
+      display: grid;
+      gap: 13px;
+    }
+
+    details {
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: var(--panel);
+      box-shadow: var(--shadow);
+    }
+
+    details[open] {
+      border-color: rgba(201, 138, 61, 0.55);
+    }
+
+    summary {
+      position: relative;
+      display: grid;
+      grid-template-columns: 42px minmax(0, 1fr) 30px;
+      align-items: center;
+      gap: 12px;
+      min-height: 86px;
+      padding: 14px 15px;
+      cursor: pointer;
+      list-style: none;
+      user-select: none;
+    }
+
+    summary::-webkit-details-marker { display: none; }
+
+    summary:focus-visible {
+      outline: 3px solid rgba(201, 138, 61, 0.32);
+      outline-offset: -3px;
+    }
+
+    .number {
+      display: grid;
+      width: 42px;
+      height: 42px;
+      place-items: center;
+      border-radius: 14px;
+      background: var(--amber-soft);
+      color: #855717;
+      font-family: Georgia, serif;
+      font-size: 1.25rem;
+      font-weight: 800;
+    }
+
+    .summary-text strong {
+      display: block;
+      font-size: 1.02rem;
+      line-height: 1.45;
+    }
+
+    .summary-text small {
+      display: block;
+      margin-top: 4px;
+      color: var(--muted);
+      font-size: 0.78rem;
+      line-height: 1.45;
+    }
+
+    .chevron {
+      position: relative;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: #f4eee5;
+    }
+
+    .chevron::before,
+    .chevron::after {
+      position: absolute;
+      top: 14px;
+      left: 8px;
+      width: 14px;
+      height: 2px;
+      border-radius: 2px;
+      background: var(--amber);
+      content: "";
+      transition: transform 180ms ease;
+    }
+
+    .chevron::after { transform: rotate(90deg); }
+    details[open] .chevron::after { transform: rotate(0deg); }
+
+    .body {
+      padding: 4px 20px 23px 69px;
+      border-top: 1px solid #ece5dc;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      margin: 16px 0 4px;
+      padding: 5px 10px;
+      border-radius: 999px;
+      background: #f3ede4;
+      color: #716354;
+      font-size: 0.75rem;
+      font-weight: 700;
+    }
+
+    h2 {
+      margin: 18px 0 5px;
+      font-size: 0.9rem;
+      color: #8b5e25;
+      letter-spacing: 0.035em;
+    }
+
+    p { margin: 6px 0 13px; }
+
+    blockquote {
+      margin: 16px 0;
+      padding: 13px 15px;
+      border-radius: 12px;
+      background: #f5efe6;
+      color: #63594d;
+      font-size: 0.9rem;
+    }
+
+    .quote {
+      margin-top: 17px;
+      padding: 16px 18px;
+      border-radius: 14px;
+      background: #312d28;
+      color: white;
+      font-size: 1.02rem;
+      font-weight: 800;
+      text-align: center;
+    }
+
+    .links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 9px;
+      margin-top: 17px;
+    }
+
+    a.button {
+      display: inline-flex;
+      align-items: center;
+      min-height: 42px;
+      padding: 9px 14px;
+      border-radius: 999px;
+      background: var(--amber);
+      color: #fff;
+      font-size: 0.84rem;
+      font-weight: 800;
+      text-decoration: none;
+      box-shadow: 0 6px 16px rgba(201, 138, 61, 0.24);
+    }
+
+    a.button::after { margin-left: 7px; content: "↗"; }
+
+    footer {
+      margin-top: 30px;
+      color: var(--muted);
+      font-size: 0.75rem;
+      text-align: center;
+    }
+
+    @media (max-width: 560px) {
+      main { padding-top: 25px; }
+      summary { grid-template-columns: 38px minmax(0, 1fr) 28px; gap: 10px; }
+      .number { width: 38px; height: 38px; border-radius: 12px; }
+      .body { padding: 2px 16px 20px; }
+      .badge { margin-top: 15px; }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <p class="eyebrow">Bodywork Summary</p>
+    <h1>足裏の内側から、股関節・胸郭へつなぐ</h1>
+    <p class="lead">足裏の内側で重さを受け、内もも・股関節・骨盤・胸郭へつなぎ、片足支持やスイングを全身の連動で行える状態を目指しました。</p>
+
+    <section class="accordion" aria-label="ワークショップの体操一覧">
+      <details open>
+        <summary>
+          <span class="number">1</span>
+          <span class="summary-text"><strong>片足立ち・足裏荷重チェック</strong><small>まず「どこで支えているか」を点検</small></span>
+          <span class="chevron" aria-hidden="true"></span>
+        </summary>
+        <div class="body">
+          <span class="badge">評価ドリル</span>
+          <h2>何のため？</h2>
+          <p>片足になった時、重さが小指側へ逃げるのか、土踏まず側から股関節の真下へ通るのかを確認するため。</p>
+          <h2>行ったこと</h2>
+          <p>左右それぞれ片足立ちを行い、足裏・膝・股関節が縦にそろうか、左右でふらつき方が違うかを比較しました。</p>
+          <h2>見るポイント</h2>
+          <p>小指側に逃げず、土踏まず側に重さが集まると、体が横へずれにくい。</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>
+          <span class="number">2</span>
+          <span class="summary-text"><strong>かかと合わせつま先立ち</strong><small>足の内側ラインを目覚めさせる</small></span>
+          <span class="chevron" aria-hidden="true"></span>
+        </summary>
+        <div class="body">
+          <span class="badge">内側ライン</span>
+          <h2>何のため？</h2>
+          <p>母指球・内側足首・内側ふくらはぎ・内転筋を一本につなぎ、片足立ちで内側に重さを集めやすくするため。</p>
+          <h2>行ったこと</h2>
+          <p>段差からかかとを出し、かかと同士をつけたまま上下。内側に軽く力を通しながら、かかとを離さず繰り返しました。</p>
+          <h2>狙った変化</h2>
+          <p>お腹から内もも、ふくらはぎ内側、足裏までの存在感が出て、片足立ちで内側を捉えやすくなる。</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>
+          <span class="number">3</span>
+          <span class="summary-text"><strong>内旋から外旋する腰割り</strong><small>深い内ももと骨盤を連動させる</small></span>
+          <span class="chevron" aria-hidden="true"></span>
+        </summary>
+        <div class="body">
+          <span class="badge">腰割り</span>
+          <h2>何のため？</h2>
+          <p>普段伸びにくい内転筋の深い部分を伸ばし、膝・股関節・骨盤・背骨が連動して動けるようにするため。</p>
+          <h2>行ったこと</h2>
+          <p>片脚を一度内側へひねり、限界まで伸びた位置から股関節主導で外へほどきながら腰を落としました。座位でも膝の円運動を練習しました。</p>
+          <h2>外してはいけない原理</h2>
+          <p>膝だけをねじらない。膝の動きに骨盤がついてきて、そこから脚全体が外へ開く。</p>
+          <h2>前後差チェック</h2>
+          <p>歩いた時に、足の内側へ力が入りやすいか。片足でも膝が崩れず、股関節と内ももで支えられるか。</p>
+          <div class="links"><a class="button" href="https://bodywork-engineering-site.vercel.app/exercises#internal-external-koshiwari">体操ページを見る</a></div>
+        </div>
+      </details>
+
+      <details>
+        <summary>
+          <span class="number">4</span>
+          <span class="summary-text"><strong>胸郭主導のスーパーマン準備</strong><small>腕ではなく胸と肋骨を動かす</small></span>
+          <span class="chevron" aria-hidden="true"></span>
+        </summary>
+        <div class="body">
+          <span class="badge">胸郭・肩甲骨</span>
+          <h2>何のため？</h2>
+          <p>腕を上げる時に肩や首だけで頑張らず、鎖骨・肋骨・胸骨・肩甲骨を連動させるため。腰だけで反る代償も減らします。</p>
+          <h2>行ったこと</h2>
+          <p>腕回しで鎖骨と肋骨の伸びを確認し、胸骨と背中側を連動。肩甲骨を後ろ下へ収め、胸の部分をたわませてスーパーマン動作を行いました。</p>
+          <h2>今回の大事な発見</h2>
+          <p>「体を反る＝腰を反る」ではない。胸郭から反れると、腰の負担を増やさず腕を後方へ伸ばしやすい。</p>
+          <blockquote>正式な単独体操名は文字起こしだけでは確定しにくいため、機能を表す仮称にしています。</blockquote>
+        </div>
+      </details>
+
+      <details>
+        <summary>
+          <span class="number">5</span>
+          <span class="summary-text"><strong>股関節ランジ・椅子ランジ</strong><small>腰割りから片側の股関節へ乗る</small></span>
+          <span class="chevron" aria-hidden="true"></span>
+        </summary>
+        <div class="body">
+          <span class="badge">片側支持</span>
+          <h2>何のため？</h2>
+          <p>左右対称の腰割りから、歩行や片足支持に必要な「片側股関節へ体重を収める」動きへ移行するため。</p>
+          <h2>行ったこと</h2>
+          <p>腰割りから体を片側へ向け、触っている股関節へ体重を落としました。台や椅子も使い、股関節に乗った状態で小さくバウンドしました。</p>
+          <h2>見るポイント</h2>
+          <p>前膝へ突っ込むのではなく、前脚の股関節の奥へ重さが「すっ」と収まるか。</p>
+          <div class="links">
+            <a class="button" href="https://bodywork-engineering-site.vercel.app/exercises#hip-lunge">股関節ランジ</a>
+            <a class="button" href="https://bodywork-engineering-site.vercel.app/exercises#chair-lunge">椅子ランジ</a>
+          </div>
+        </div>
+      </details>
+
+      <details>
+        <summary>
+          <span class="number">6</span>
+          <span class="summary-text"><strong>ボール股関節スイング</strong><small>最後に全身運動へ統合</small></span>
+          <span class="chevron" aria-hidden="true"></span>
+        </summary>
+        <div class="body">
+          <span class="badge">全身統合</span>
+          <h2>何のため？</h2>
+          <p>股関節を動きの支点にして、腕の力ではなく、重さ・重心移動・股関節の反発でボールを振るため。</p>
+          <h2>行ったこと</h2>
+          <p>ボールが落ちるタイミングに合わせて股関節を後ろへ引き、股関節を前へ戻す力でボールを運びました。</p>
+          <div class="quote">腕で振らない。股関節でボールを動かす。</div>
+          <div class="links"><a class="button" href="https://bodywork-engineering-site.vercel.app/exercises#hip-swing">股関節スイングを見る</a></div>
+        </div>
+      </details>
+    </section>
+
+    <footer>Bodywork Summary Library</footer>
+  </main>
+</body>
+</html>
