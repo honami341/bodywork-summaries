@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="胸郭から腕を外へひらき、首を解放するワークのポップなアコーディオンサマリー" />
+  <title>胸郭から腕を外へひらき、首を解放するワーク</title>
+  <style>
+    :root {
+      --paper:#f7f4ee;
+      --panel:#fffdf8;
+      --ink:#2e2a25;
+      --muted:#756c62;
+      --amber:#c98a3d;
+      --amber-dark:#855717;
+      --amber-soft:#f2e2cc;
+      --mint:#dfece5;
+      --rose:#f3dfdc;
+      --blue:#e0e8ee;
+      --line:#ded5c9;
+      --shadow:0 14px 34px rgba(64,47,30,.09);
+    }
+
+    *{box-sizing:border-box}
+    html{background:var(--paper)}
+    body{
+      margin:0;
+      color:var(--ink);
+      background:
+        radial-gradient(circle at 8% 0%,rgba(201,138,61,.15),transparent 28rem),
+        radial-gradient(circle at 100% 35%,rgba(170,198,183,.16),transparent 25rem),
+        var(--paper);
+      font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic","Noto Sans JP",sans-serif;
+      line-height:1.8;
+    }
+
+    main{width:min(780px,calc(100% - 28px));margin:0 auto;padding:34px 0 72px}
+
+    .eyebrow{display:flex;align-items:center;gap:9px;margin:0 0 12px;color:var(--amber);font-size:.78rem;font-weight:850;letter-spacing:.13em;text-transform:uppercase}
+    .eyebrow::before{width:9px;height:9px;border-radius:50%;background:var(--amber);box-shadow:0 0 0 6px rgba(201,138,61,.13);content:""}
+
+    h1{margin:0;max-width:700px;font-family:"Yu Mincho","Hiragino Mincho ProN",serif;font-size:clamp(1.78rem,7vw,3rem);line-height:1.34;letter-spacing:.015em}
+
+    .lead{margin:22px 0 27px;padding:18px 20px;border-left:4px solid var(--amber);border-radius:0 16px 16px 0;background:rgba(255,253,248,.85);color:#514941;box-shadow:0 8px 22px rgba(63,49,34,.05)}
+
+    .flow{display:flex;flex-wrap:wrap;align-items:center;gap:7px;margin:0 0 28px;padding:13px 15px;border:1px dashed rgba(201,138,61,.55);border-radius:15px;background:rgba(255,255,255,.45);font-size:.78rem;font-weight:800;color:#6d5a45}
+    .flow span{padding:5px 9px;border-radius:999px;background:#fffdf8}
+    .flow b{color:var(--amber)}
+
+    .accordion{display:grid;gap:13px}
+    details{overflow:hidden;border:1px solid var(--line);border-radius:19px;background:var(--panel);box-shadow:var(--shadow)}
+    details[open]{border-color:rgba(201,138,61,.58)}
+
+    summary{display:grid;grid-template-columns:44px minmax(0,1fr) 30px;align-items:center;gap:12px;min-height:88px;padding:14px 15px;cursor:pointer;list-style:none;user-select:none}
+    summary::-webkit-details-marker{display:none}
+    summary:focus-visible{outline:3px solid rgba(201,138,61,.3);outline-offset:-3px}
+
+    .number{display:grid;width:44px;height:44px;place-items:center;border-radius:15px;color:#6a4b23;font-family:Georgia,serif;font-size:1.25rem;font-weight:850}
+    details:nth-child(1) .number{background:var(--amber-soft)}
+    details:nth-child(2) .number{background:var(--blue)}
+    details:nth-child(3) .number{background:var(--mint)}
+    details:nth-child(4) .number{background:var(--rose)}
+    details:nth-child(5) .number{background:var(--amber-soft)}
+
+    .summary-text strong{display:block;font-size:1.03rem;line-height:1.42}
+    .summary-text small{display:block;margin-top:4px;color:var(--muted);font-size:.78rem;line-height:1.45}
+
+    .plus{position:relative;width:30px;height:30px;border-radius:50%;background:#f4eee5}
+    .plus::before,.plus::after{position:absolute;top:14px;left:8px;width:14px;height:2px;border-radius:2px;background:var(--amber);content:"";transition:transform .18s ease}
+    .plus::after{transform:rotate(90deg)}
+    details[open] .plus::after{transform:rotate(0)}
+
+    .body{padding:3px 20px 23px 71px;border-top:1px solid #ede5db}
+    .badge{display:inline-flex;margin:16px 0 4px;padding:5px 10px;border-radius:999px;background:#f3ede4;color:#716354;font-size:.75rem;font-weight:800}
+    h2{margin:18px 0 5px;color:var(--amber-dark);font-size:.9rem;letter-spacing:.035em}
+    p{margin:6px 0 13px}
+    ul,ol{margin:7px 0 15px;padding-left:1.4rem}
+    li+li{margin-top:5px}
+    blockquote{margin:16px 0;padding:13px 15px;border-left:3px solid var(--amber);border-radius:0 12px 12px 0;background:#f5efe6;color:#63594d;font-size:.9rem}
+    .chain{margin:16px 0;padding:14px 15px;border-radius:14px;background:#332f2a;color:#fff;font-weight:850;text-align:center;line-height:1.65}
+    .quote{margin-top:17px;padding:17px 18px;border-radius:15px;background:linear-gradient(135deg,#c98a3d,#a96c27);color:#fff;font-size:1.02rem;font-weight:850;text-align:center;box-shadow:0 8px 20px rgba(201,138,61,.24)}
+    footer{margin-top:30px;color:var(--muted);font-size:.75rem;text-align:center}
+
+    @media(max-width:560px){
+      main{padding-top:25px}
+      summary{grid-template-columns:39px minmax(0,1fr) 28px;gap:10px}
+      .number{width:39px;height:39px;border-radius:12px}
+      .body{padding:2px 16px 20px}
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <p class="eyebrow">Bodywork Summary</p>
+    <h1>胸郭から腕を外へひらき、首を解放する</h1>
+    <p class="lead">デスクワークで内巻きになりやすい腕を、腕だけでひねらず、体重移動と胸郭の変形から外旋させ、肩甲骨・肘が安定する位置へつなげました。</p>
+
+    <div class="flow" aria-label="動きの流れ">
+      <span>体重移動</span><b>→</b><span>胸郭が変形</span><b>→</b><span>腕が外旋</span><b>→</b><span>肩・首が解放</span>
+    </div>
+
+    <section class="accordion" aria-label="ワークの内容">
+      <details open>
+        <summary>
+          <span class="number">1</span>
+          <span class="summary-text"><strong>今回の狙い</strong><small>内巻きになった腕を、胸から外へひらく</small></span>
+          <span class="plus" aria-hidden="true"></span>
+        </summary>
+        <div class="body">
+          <span class="badge">デスクワーク対策</span>
+          <h2>なぜ行う？</h2>
+          <p>パソコン作業では、腕が内側へ巻き込み、胸の前側や肩まわりが縮まりやすくなります。今回の狙いは、その反対方向の動きを腕だけで作らず、胸郭から生み出すことでした。</p>
+          <h2>目指した変化</h2>
+          <p>胸郭が動いて腕が自然に外旋すると、肩の前側が解放され、首まわりもゆるみやすくなります。</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>
+          <span class="number">2</span>
+          <span class="summary-text"><strong>抵抗を使った「投げる前」の形</strong><small>腕ではなく、胸郭が動きを起こす</small></span>
+          <span class="plus" aria-hidden="true"></span>
+        </summary>
+        <div class="body">
+          <span class="badge">感覚づくり</span>
+          <h2>行ったこと</h2>
+          <p>腕を相手に押さえてもらい、野球でボールを投げる直前のような形を作りました。腕を無理に引くのではなく、胸郭が横へずれ、胸の前側が伸びることで腕が外へひらく感覚を確認しました。</p>
+          <h2>見るポイント</h2>
+          <ul>
+            <li>肩だけを後ろへ引かない</li>
+            <li>胸郭の動きに腕がついてくる</li>
+            <li>胸の前から腕の付け根まで長く伸びる</li>
+          </ul>
+        </div>
+      </details>
+
+      <details>
+        <summary>
+          <span class="number">3</span>
+          <span class="summary-text"><strong>体重移動と胸郭の変形</strong><small>下半身の移動を、胸の伸びにつなげる</small></span>
+          <span class="plus" aria-hidden="true"></span>
+        </summary>
+        <div class="body">
+          <span class="badge">全身連動</span>
+          <h2>行ったこと</h2>
+          <p>足を安定する位置に構え、膝をやわらかく使いながら片側へ体重を移しました。その移動に合わせて胸郭を変形させ、腕が自然に外へ回る動きを繰り返しました。</p>
+          <h2>大事な点</h2>
+          <p>体重を戻しながら腕だけを元へ戻すのではなく、重さを移した側に残したまま、胸郭の動きで腕を戻します。</p>
+          <div class="chain">体重移動 → 胸郭の変形 → 腕の外旋 → 胸の前側が伸びる</div>
+        </div>
+      </details>
+
+      <details>
+        <summary>
+          <span class="number">4</span>
+          <span class="summary-text"><strong>肩甲骨と肘が「はまる」位置</strong><small>押す・引く力を腕だけに負担させない</small></span>
+          <span class="plus" aria-hidden="true"></span>
+        </summary>
+        <div class="body">
+          <span class="badge">安定した腕の土台</span>
+          <h2>確認したこと</h2>
+          <p>動作の後に腕を下げると、肘が体の横へ自然に収まり、肩甲骨と肘がつながった安定した形が現れました。</p>
+          <h2>この位置の意味</h2>
+          <p>肩甲骨と肘が適切に収まると、腕だけで頑張らず、体幹から押したり引いたりしやすくなります。</p>
+          <blockquote>肩を後ろへ固めるのではなく、胸郭の動きの結果として肩甲骨と肘が収まることが重要です。</blockquote>
+        </div>
+      </details>
+
+      <details>
+        <summary>
+          <span class="number">5</span>
+          <span class="summary-text"><strong>繰り返し練習</strong><small>ハイタッチの直前のように、胸から腕を送り出す</small></span>
+          <span class="plus" aria-hidden="true"></span>
+        </summary>
+        <div class="body">
+          <span class="badge">セルフワーク</span>
+          <h2>練習方法</h2>
+          <p>ハイタッチやボールを投げる直前の形をイメージし、体重移動と胸郭の動きを合わせて左右それぞれ繰り返しました。</p>
+          <h2>家で試すとき</h2>
+          <ol>
+            <li>足を安定する幅に開く</li>
+            <li>膝を軽くゆるめる</li>
+            <li>片側へ体重を移す</li>
+            <li>胸郭から腕を外へひらく</li>
+            <li>腕を下げ、肩甲骨と肘の収まりを確認する</li>
+          </ol>
+          <div class="quote">腕をひねるのではなく、胸が動いた結果として腕が外へ回る。</div>
+        </div>
+      </details>
+    </section>
+
+    <footer>Bodywork Summary Library</footer>
+  </main>
+</body>
+</html>
