@@ -1,0 +1,37 @@
+<div class="prose auto-accordion" data-auto-accordion>
+  <slot />
+</div>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-auto-accordion]').forEach((root) => {
+    if (root.dataset.accordionReady === 'true') return;
+    root.dataset.accordionReady = 'true';
+
+    const children = Array.from(root.children);
+    let currentBody: HTMLDivElement | null = null;
+
+    for (const child of children) {
+      if (child.tagName === 'H2') {
+        const details = document.createElement('details');
+        details.className = 'accordion-section';
+
+        const summary = document.createElement('summary');
+        summary.innerHTML = child.innerHTML;
+        details.append(summary);
+
+        const body = document.createElement('div');
+        body.className = 'accordion-section__body';
+        details.append(body);
+
+        root.insertBefore(details, child);
+        child.remove();
+        currentBody = body;
+        continue;
+      }
+
+      if (currentBody) {
+        currentBody.append(child);
+      }
+    }
+  });
+</script>
