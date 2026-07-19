@@ -1,7 +1,7 @@
 ---
 type: workshop
 title: 胸郭から腕を外へひらき、首を解放するワーク
- date: 2026-07-19
+date: 2026-07-19
 slug: chest-led-arm-external-rotation-2026-07-19
 summary: デスクワークで内巻きになりやすい腕を、腕だけでひねらず、体重移動と胸郭の変形から外旋させ、肩甲骨・肘が安定する位置へつなげました。
 tags:
