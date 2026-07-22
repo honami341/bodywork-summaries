@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">「そんなことは言っていない」と「つまらない回答」の間で</title>
+  <desc id="desc">自由にさせると拡大解釈し、厳しく縛ると萎縮するLLMを、固定する中心と自由にする外側で設計する図</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f7f2e8"/>
+      <stop offset="1" stop-color="#efe7d9"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="10" stdDeviation="12" flood-color="#493824" flood-opacity=".10"/>
+    </filter>
+  </defs>
+
+  <rect width="1200" height="630" rx="36" fill="url(#bg)"/>
+  <circle cx="100" cy="80" r="150" fill="#d18a32" opacity=".09"/>
+  <circle cx="1120" cy="550" r="190" fill="#5f8b76" opacity=".09"/>
+
+  <text x="600" y="74" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,'Hiragino Sans','Yu Gothic',sans-serif" font-size="24" font-weight="800" fill="#c57e28" letter-spacing="2">LLM CHATBOT DESIGN DILEMMA</text>
+  <text x="600" y="125" text-anchor="middle" font-family="'Yu Mincho','Hiragino Mincho ProN',serif" font-size="42" font-weight="700" fill="#292621">「そんなことは言っていない」と</text>
+  <text x="600" y="176" text-anchor="middle" font-family="'Yu Mincho','Hiragino Mincho ProN',serif" font-size="42" font-weight="700" fill="#292621">「つまらない回答」の間で</text>
+
+  <g filter="url(#shadow)">
+    <rect x="80" y="225" width="300" height="170" rx="26" fill="#fffdf8" stroke="#e0cba9" stroke-width="2"/>
+    <circle cx="130" cy="270" r="24" fill="#f7e4c4"/>
+    <path d="M118 270h24M130 258v24" stroke="#c57e28" stroke-width="4" stroke-linecap="round"/>
+    <text x="170" y="270" font-family="-apple-system,BlinkMacSystemFont,'Hiragino Sans','Yu Gothic',sans-serif" font-size="22" font-weight="800" fill="#a9602b">自由にさせすぎる</text>
+    <text x="110" y="318" font-family="-apple-system,BlinkMacSystemFont,'Hiragino Sans','Yu Gothic',sans-serif" font-size="17" font-weight="700" fill="#292621">拡大解釈・捏造・越権</text>
+    <text x="110" y="350" font-family="-apple-system,BlinkMacSystemFont,'Hiragino Sans','Yu Gothic',sans-serif" font-size="15" fill="#70685e">未定義部分まで、もっともらしく補う</text>
+  </g>
+
+  <g filter="url(#shadow)">
+    <rect x="820" y="225" width="300" height="170" rx="26" fill="#fffdf8" stroke="#c9dbe5" stroke-width="2"/>
+    <circle cx="870" cy="270" r="24" fill="#dcebf2"/>
+    <path d="M858 270h24" stroke="#4f7f9c" stroke-width="4" stroke-linecap="round"/>
+    <text x="910" y="270" font-family="-apple-system,BlinkMacSystemFont,'Hiragino Sans','Yu Gothic',sans-serif" font-size="22" font-weight="800" fill="#4f7f9c">厳しく縛りすぎる</text>
+    <text x="850" y="318" font-family="-apple-system,BlinkMacSystemFont,'Hiragino Sans','Yu Gothic',sans-serif" font-size="17" font-weight="700" fill="#292621">平凡・萎縮・無回答</text>
+    <text x="850" y="350" font-family="-apple-system,BlinkMacSystemFont,'Hiragino Sans','Yu Gothic',sans-serif" font-size="15" fill="#70685e">一般論・注意喚起・「分かりません」へ逃げる</text>
+  </g>
+
+  <g filter="url(#shadow)">
+    <circle cx="600" cy="315" r="112" fill="#fffdf8" stroke="#d9cebf" stroke-width="2"/>
+    <circle cx="600" cy="315" r="67" fill="#292621"/>
+    <text x="600" y="303" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,'Hiragino Sans','Yu Gothic',sans-serif" font-size="17" font-weight="800" fill="#fffdf8">壊してはいけない</text>
+    <text x="600" y="329" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,'Hiragino Sans','Yu Gothic',sans-serif" font-size="17" font-weight="800" fill="#fffdf8">中心を固定</text>
+    <path d="M600 201a114 114 0 0 1 99 57" fill="none" stroke="#d18a32" stroke-width="12" stroke-linecap="round"/>
+    <path d="M699 372a114 114 0 0 1-99 57" fill="none" stroke="#5f8b76" stroke-width="12" stroke-linecap="round"/>
+    <path d="M600 429a114 114 0 0 1-99-57" fill="none" stroke="#75658d" stroke-width="12" stroke-linecap="round"/>
+    <path d="M501 258a114 114 0 0 1 99-57" fill="none" stroke="#4f7f9c" stroke-width="12" stroke-linecap="round"/>
+  </g>
+
+  <path d="M380 310h92" stroke="#c57e28" stroke-width="4" stroke-dasharray="9 9"/>
+  <path d="M728 310h92" stroke="#4f7f9c" stroke-width="4" stroke-dasharray="9 9"/>
+
+  <g font-family="-apple-system,BlinkMacSystemFont,'Hiragino Sans','Yu Gothic',sans-serif">
+    <rect x="120" y="450" width="210" height="60" rx="18" fill="#f7e4c4"/>
+    <text x="225" y="487" text-anchor="middle" font-size="18" font-weight="800" fill="#8d551f">定義・階層</text>
+
+    <rect x="360" y="450" width="210" height="60" rx="18" fill="#dcebf2"/>
+    <text x="465" y="487" text-anchor="middle" font-size="18" font-weight="800" fill="#3f6d87">役割・問い分解</text>
+
+    <rect x="600" y="450" width="210" height="60" rx="18" fill="#e8e1ef"/>
+    <text x="705" y="487" text-anchor="middle" font-size="18" font-weight="800" fill="#66577d">失敗から採掘</text>
+
+    <rect x="840" y="450" width="210" height="60" rx="18" fill="#deeee5"/>
+    <text x="945" y="487" text-anchor="middle" font-size="18" font-weight="800" fill="#4f7864">文脈資産化</text>
+  </g>
+
+  <rect x="170" y="548" width="860" height="52" rx="20" fill="#292621"/>
+  <text x="600" y="581" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,'Hiragino Sans','Yu Gothic',sans-serif" font-size="20" font-weight="800" fill="#fffdf8">中心は硬く固定し、その外側ではLLMを自由に探索させる</text>
+</svg>
