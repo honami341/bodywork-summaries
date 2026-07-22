@@ -1,0 +1,335 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="独自理論をLLMに安定して実装するための、定義化・階層化・構造化・役割分担・文脈資産化・評価較正の6本柱を解説します。" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="LLMに独自理論を実装するための6本柱" />
+  <meta property="og:description" content="意味・情報・推論・権限・記憶・改善を設計し、LLMの自由度を独自理論の文脈内に収める。" />
+  <meta name="theme-color" content="#f7f4ee" />
+  <title>LLMに独自理論を実装するための6本柱</title>
+  <style>
+    :root {
+      --paper:#f7f4ee;
+      --panel:#fffdf8;
+      --ink:#2e2a25;
+      --muted:#756c62;
+      --amber:#c98a3d;
+      --amber-dark:#855717;
+      --amber-soft:#f2e2cc;
+      --mint:#dfece5;
+      --rose:#f3dfdc;
+      --blue:#e0e8ee;
+      --violet:#e8e1ed;
+      --sand:#ece5d8;
+      --line:#ded5c9;
+      --shadow:0 14px 34px rgba(64,47,30,.09);
+    }
+
+    *{box-sizing:border-box}
+    html{background:var(--paper);scroll-behavior:smooth}
+    body{
+      margin:0;
+      color:var(--ink);
+      background:
+        radial-gradient(circle at 8% 0%,rgba(201,138,61,.15),transparent 28rem),
+        radial-gradient(circle at 100% 32%,rgba(170,198,183,.15),transparent 26rem),
+        var(--paper);
+      font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic","Noto Sans JP",sans-serif;
+      line-height:1.8;
+    }
+
+    main{width:min(820px,calc(100% - 28px));margin:0 auto;padding:34px 0 76px}
+    .eyebrow{display:flex;align-items:center;gap:9px;margin:0 0 12px;color:var(--amber);font-size:.78rem;font-weight:850;letter-spacing:.13em;text-transform:uppercase}
+    .eyebrow::before{width:9px;height:9px;border-radius:50%;background:var(--amber);box-shadow:0 0 0 6px rgba(201,138,61,.13);content:""}
+    h1{margin:0;max-width:760px;font-family:"Yu Mincho","Hiragino Mincho ProN",serif;font-size:clamp(1.85rem,7vw,3.2rem);line-height:1.34;letter-spacing:.015em}
+    h2{margin:19px 0 6px;color:var(--amber-dark);font-size:.93rem;letter-spacing:.035em}
+    p{margin:7px 0 14px}
+    ul,ol{margin:8px 0 15px;padding-left:1.4rem}
+    li+li{margin-top:5px}
+    strong{font-weight:850}
+
+    .lead{margin:22px 0 18px;padding:18px 20px;border-left:4px solid var(--amber);border-radius:0 16px 16px 0;background:rgba(255,253,248,.86);color:#514941;box-shadow:0 8px 22px rgba(63,49,34,.05)}
+    .thesis{margin:0 0 26px;padding:15px 17px;border:1px dashed rgba(201,138,61,.58);border-radius:15px;background:rgba(255,255,255,.44);font-weight:800;color:#6d5a45}
+
+    .section-title{margin:30px 0 12px;font-size:1.05rem;color:var(--ink);letter-spacing:.02em}
+    .problem-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin:12px 0 17px}
+    .problem{padding:12px 14px;border:1px solid var(--line);border-radius:14px;background:rgba(255,253,248,.82);font-size:.88rem;font-weight:750}
+    .problem:last-child:nth-child(odd){grid-column:1/-1}
+
+    .governance{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;margin:14px 0 26px}
+    .governance div{padding:11px 12px;border:1px solid var(--line);border-radius:14px;background:var(--panel);text-align:center}
+    .governance small{display:block;color:var(--muted);font-size:.72rem;font-weight:750}
+    .governance b{display:block;margin-top:2px;font-size:.98rem}
+
+    .toolbar{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px;margin:30px 0 12px}
+    .toolbar p{margin:0;color:var(--muted);font-size:.78rem}
+    .buttons{display:flex;gap:8px}
+    button{appearance:none;padding:8px 12px;border:1px solid var(--line);border-radius:999px;background:var(--panel);color:var(--ink);font:inherit;font-size:.76rem;font-weight:800;cursor:pointer}
+    button:hover{border-color:rgba(201,138,61,.7);background:#fff9ef}
+    button:focus-visible{outline:3px solid rgba(201,138,61,.3);outline-offset:2px}
+
+    .accordion{display:grid;gap:13px}
+    details{overflow:hidden;border:1px solid var(--line);border-radius:19px;background:var(--panel);box-shadow:var(--shadow)}
+    details[open]{border-color:rgba(201,138,61,.58)}
+    summary{display:grid;grid-template-columns:44px minmax(0,1fr) 30px;align-items:center;gap:12px;min-height:90px;padding:14px 15px;cursor:pointer;list-style:none;user-select:none}
+    summary::-webkit-details-marker{display:none}
+    summary:focus-visible{outline:3px solid rgba(201,138,61,.3);outline-offset:-3px}
+    .number{display:grid;width:44px;height:44px;place-items:center;border-radius:15px;color:#62471f;font-family:Georgia,serif;font-size:1.25rem;font-weight:850}
+    details:nth-child(1) .number{background:var(--amber-soft)}
+    details:nth-child(2) .number{background:var(--blue)}
+    details:nth-child(3) .number{background:var(--mint)}
+    details:nth-child(4) .number{background:var(--rose)}
+    details:nth-child(5) .number{background:var(--violet)}
+    details:nth-child(6) .number{background:var(--sand)}
+    .summary-text strong{display:block;font-size:1.04rem;line-height:1.42}
+    .summary-text small{display:block;margin-top:4px;color:var(--muted);font-size:.78rem;line-height:1.45}
+    .plus{position:relative;width:30px;height:30px;border-radius:50%;background:#f4eee5}
+    .plus::before,.plus::after{position:absolute;top:14px;left:8px;width:14px;height:2px;border-radius:2px;background:var(--amber);content:"";transition:transform .18s ease}
+    .plus::after{transform:rotate(90deg)}
+    details[open] .plus::after{transform:rotate(0)}
+
+    .body{padding:3px 22px 24px 71px;border-top:1px solid #ede5db}
+    .badge{display:inline-flex;margin:16px 0 4px;padding:5px 10px;border-radius:999px;background:#f3ede4;color:#716354;font-size:.74rem;font-weight:850}
+    .example{margin:14px 0;padding:13px 15px;border-left:3px solid var(--amber);border-radius:0 12px 12px 0;background:#f5efe6;color:#63594d;font-size:.9rem}
+    .guard{margin:16px 0 0;padding:13px 15px;border-radius:14px;background:#332f2a;color:#fff;font-size:.88rem}
+    .process{display:grid;gap:7px;margin:14px 0}
+    .step{padding:10px 13px;border:1px solid var(--line);border-radius:12px;background:#fffdf8;font-size:.88rem;font-weight:750}
+    .arrow{text-align:center;color:var(--amber);font-weight:900;line-height:1}
+    .authority{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:13px 0}
+    .authority div{padding:11px 12px;border-radius:12px;background:#f5efe6;font-size:.84rem}
+    .authority div:last-child:nth-child(odd){grid-column:1/-1}
+    .authority b{display:block;color:var(--amber-dark)}
+
+    .conclusion{margin-top:30px;padding:20px;border-radius:18px;background:#332f2a;color:#fff;box-shadow:var(--shadow)}
+    .conclusion strong{display:block;font-family:"Yu Mincho","Hiragino Mincho ProN",serif;font-size:1.15rem;line-height:1.7}
+    .conclusion p{margin:10px 0 0;color:#e9dfd4;font-size:.9rem}
+    footer{margin-top:30px;color:var(--muted);font-size:.73rem;text-align:center}
+
+    @media(max-width:620px){
+      main{padding-top:25px}
+      .problem-grid,.governance,.authority{grid-template-columns:1fr}
+      .problem:last-child:nth-child(odd),.authority div:last-child:nth-child(odd){grid-column:auto}
+      summary{grid-template-columns:39px minmax(0,1fr) 28px;gap:10px}
+      .number{width:39px;height:39px;border-radius:12px}
+      .body{padding:2px 16px 21px}
+      .toolbar{align-items:flex-start}
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <p class="eyebrow">Accordion Summary</p>
+    <h1>LLMに独自理論を実装するための6本柱</h1>
+    <p class="lead">独自理論をLLMに覚えさせるのではなく、意味・情報・推論・権限・記憶・改善を設計し、LLMの自由度を理論の文脈内に収めます。</p>
+    <p class="thesis">質問は自由に受ける。ただし、回答を作る座標と境界は固定する。</p>
+
+    <h2 class="section-title">問題意識</h2>
+    <p>LLMは高性能である一方、自由度が高く、資料をそのまま渡しただけでは独自理論を安定して扱えません。</p>
+    <div class="problem-grid" aria-label="LLMで起こりやすい問題">
+      <div class="problem">独自概念を一般概念へ言い換える</div>
+      <div class="problem">科学・経験・AIの推測を混ぜる</div>
+      <div class="problem">未定義部分をもっともらしく補完する</div>
+      <div class="problem">親切だが無難な一般論へ戻る</div>
+      <div class="problem">長期対話やモデル変更で判断基準を失う</div>
+    </div>
+    <p>つまり、問題は知識不足だけではなく、<strong>意味の混同・越権・補完・文脈喪失</strong>です。</p>
+
+    <h2 class="section-title">目的</h2>
+    <p>LLMをより賢くするのではなく、独自理論の意味、情報の出所、判定権、推論できる範囲をあらかじめ設計し、その文脈内で安定して機能させます。</p>
+    <div class="governance" aria-label="6本柱が統治する対象">
+      <div><small>定義化</small><b>意味</b></div>
+      <div><small>階層化</small><b>情報</b></div>
+      <div><small>構造化</small><b>推論</b></div>
+      <div><small>役割分担</small><b>権限</b></div>
+      <div><small>文脈資産化</small><b>記憶</b></div>
+      <div><small>評価・較正</small><b>改善</b></div>
+    </div>
+
+    <div class="toolbar">
+      <div>
+        <strong>6本柱を詳しく見る</strong>
+        <p>各項目を開くと、必要性・設計内容・防げる失敗が表示されます。</p>
+      </div>
+      <div class="buttons">
+        <button type="button" id="open-all">すべて開く</button>
+        <button type="button" id="close-all">すべて閉じる</button>
+      </div>
+    </div>
+
+    <section class="accordion" id="accordion" aria-label="LLMに独自理論を実装するための6本柱">
+      <details open>
+        <summary>
+          <span class="number">1</span>
+          <span class="summary-text"><strong>定義化――意味を守る</strong><small>似ていることと、同じであることを分ける</small></span>
+          <span class="plus" aria-hidden="true"></span>
+        </summary>
+        <div class="body">
+          <span class="badge">統治対象：意味</span>
+          <h2>なぜ必要か</h2>
+          <p>LLMは意味が近い言葉を同じカテゴリーへまとめる傾向があります。そのため、独自概念が既存の一般概念へ吸収され、理論固有の違いが消えます。</p>
+          <div class="example"><strong>例：</strong>「シャーシ」→「体幹」→「コア」→一般的な体幹トレーニング、という連想で独自概念が別物へ変わる。</div>
+          <h2>何を固定するか</h2>
+          <ul>
+            <li>概念の定義と使用範囲</li>
+            <li>似ている概念と、決定的に異なる点</li>
+            <li>他の概念との因果関係</li>
+            <li>禁止される言い換えや拡大解釈</li>
+            <li>その概念を使ってよい文章上の条件</li>
+          </ul>
+          <div class="guard"><strong>防げる失敗：</strong>独自語彙が一般的な専門用語へ置き換わり、理論全体が既存理論の説明へ変質すること。</div>
+        </div>
+      </details>
+
+      <details>
+        <summary>
+          <span class="number">2</span>
+          <span class="summary-text"><strong>階層化――情報を混ぜない</strong><small>情報量ではなく、役割と確度を整理する</small></span>
+          <span class="plus" aria-hidden="true"></span>
+        </summary>
+        <div class="body">
+          <span class="badge">統治対象：情報</span>
+          <h2>なぜ必要か</h2>
+          <p>思想、定義、安全規則、具体的な手順、過去の回答例を一つの資料へ入れると、LLMはそれらを同じ確度・同じ用途の知識として扱います。</p>
+          <h2>二つの軸で分ける</h2>
+          <div class="authority">
+            <div><b>役割</b>思想・定義・規則・手順・事例・仮説</div>
+            <div><b>確度</b>本人確定・AI整理・未裁定仮説</div>
+          </div>
+          <p>常に参照する世界観と、特定の質問でだけ使う具体知識も分離します。必要な情報だけを、適切な強さで使うためです。</p>
+          <div class="guard"><strong>防げる失敗：</strong>一つの体験談やAIの仮説が、理論全体の確定事項として扱われること。</div>
+        </div>
+      </details>
+
+      <details>
+        <summary>
+          <span class="number">3</span>
+          <span class="summary-text"><strong>構造化――考える順序を固定する</strong><small>回答品質ではなく、思考手順を設計する</small></span>
+          <span class="plus" aria-hidden="true"></span>
+        </summary>
+        <div class="body">
+          <span class="badge">統治対象：推論</span>
+          <h2>なぜ必要か</h2>
+          <p>「適切に答える」とだけ指示すると、判断はその場の文章生成能力に依存します。同じ内容でも、質問の表現や会話の流れによって結論が変わります。</p>
+          <h2>回答生成を工程へ落とす</h2>
+          <div class="process" aria-label="回答生成手順">
+            <div class="step">1．問いを分類する</div><div class="arrow">↓</div>
+            <div class="step">2．安全上の管轄を確認する</div><div class="arrow">↓</div>
+            <div class="step">3．必要な知識を検索する</div><div class="arrow">↓</div>
+            <div class="step">4．独自理論の座標上へ配置する</div><div class="arrow">↓</div>
+            <div class="step">5．禁止推論や越権がないか確認する</div><div class="arrow">↓</div>
+            <div class="step">6．見方・観察・実験として提示する</div>
+          </div>
+          <div class="guard"><strong>防げる失敗：</strong>質問の言い回しや直前の文脈だけで、判断基準が変化すること。</div>
+        </div>
+      </details>
+
+      <details>
+        <summary>
+          <span class="number">4</span>
+          <span class="summary-text"><strong>役割分担――判定権を分ける</strong><small>誰が一番偉いかではなく、誰がその問いを判定できるか</small></span>
+          <span class="plus" aria-hidden="true"></span>
+        </summary>
+        <div class="body">
+          <span class="badge">統治対象：権限</span>
+          <h2>なぜ必要か</h2>
+          <p>LLMは複数の情報源を自然な一つの説明へ統合します。しかし、医学、科学、独自理論、本人の感覚、AIの仮説では、判断できる対象が異なります。</p>
+          <div class="authority">
+            <div><b>医学</b>安全、診断、受診判断</div>
+            <div><b>科学</b>集団的効果、経験的な真偽</div>
+            <div><b>独自理論</b>独自語彙、思想、守備範囲</div>
+            <div><b>本人の身体</b>この人に合うか、前後差があるか</div>
+            <div><b>AI</b>説明候補の生成、未確定仮説の提示</div>
+          </div>
+          <h2>媒体も分業する</h2>
+          <p>サイトbotは初めての人の入口、深い対話用チャットは理論探索、体操ページは正式手順、正本は定義と裁定、というように媒体ごとの役割も分けます。</p>
+          <div class="guard"><strong>防げる失敗：</strong>AIの推測が診断になったり、科学的平均が個人の体感を否定したりすること。</div>
+        </div>
+      </details>
+
+      <details>
+        <summary>
+          <span class="number">5</span>
+          <span class="summary-text"><strong>文脈資産化――探索成果を外部へ残す</strong><small>会話ではなく、発見された世界の見方を保存する</small></span>
+          <span class="plus" aria-hidden="true"></span>
+        </summary>
+        <div class="body">
+          <span class="badge">統治対象：記憶</span>
+          <h2>なぜ必要か</h2>
+          <p>長い対話では、本人も明確に言語化していなかった判断軸や概念関係が発見されます。しかし会話履歴だけに置くと、会話終了やモデル変更によって失われます。</p>
+          <h2>外部化するもの</h2>
+          <ul>
+            <li>理論全体を読むための世界モデル</li>
+            <li>概念間の因果関係</li>
+            <li>判断パターンと禁止推論</li>
+            <li>失敗例と望ましい応答事例</li>
+            <li>未確定の仮説と今後の検討課題</li>
+          </ul>
+          <h2>出所を残す</h2>
+          <p>本人確認済みの正本、AIが正本から編纂した座標系、本人未裁定の仮説を分離します。保存するだけでなく、誰がどの根拠から作った知識なのかを残すことが重要です。</p>
+          <div class="guard"><strong>防げる失敗：</strong>モデルを替えるたびに独自理論を最初から解釈させ、別の理論へ変質させること。</div>
+        </div>
+      </details>
+
+      <details>
+        <summary>
+          <span class="number">6</span>
+          <span class="summary-text"><strong>評価・較正――崩れ方を資産にする</strong><small>正しさを期待せず、失敗を次の設計材料へ変える</small></span>
+          <span class="plus" aria-hidden="true"></span>
+        </summary>
+        <div class="body">
+          <span class="badge">統治対象：改善</span>
+          <h2>なぜ必要か</h2>
+          <p>精密な指示を書いても、LLMは長い会話で一般論へ戻り、親切さから余計な助言を加え、未定義部分を別の形で補完します。</p>
+          <div class="process" aria-label="失敗を判例化する流れ">
+            <div class="step">悪い回答</div><div class="arrow">↓</div>
+            <div class="step">望ましい回答</div><div class="arrow">↓</div>
+            <div class="step">なぜ違うのかという差分理由</div>
+          </div>
+          <h2>検証する条件</h2>
+          <ul>
+            <li>同じ固定質問に対する再現性</li>
+            <li>長い会話の後でも基準を維持できるか</li>
+            <li>敵対的・誘導的な質問への耐性</li>
+            <li>検索断片を理論全体と誤認しないか</li>
+            <li>本人による採用・修正・却下</li>
+          </ul>
+          <div class="guard"><strong>得られる資産：</strong>単なる正解集ではなく、どこで・なぜ・どのように理論が崩れるかを示す判例集。</div>
+        </div>
+      </details>
+    </section>
+
+    <section class="conclusion" aria-label="まとめ">
+      <strong>意味・情報・推論・権限・記憶・改善を設計し、LLMの自由度を独自理論の文脈内に収める。</strong>
+      <p>意味を守る。情報を混ぜない。越権させない。文脈を失わせない。崩れ方から学ぶ。</p>
+    </section>
+
+    <footer>LLMに独自理論を実装するための6本柱 — Accordion Summary</footer>
+    <p id="status" hidden aria-live="polite"></p>
+  </main>
+
+  <script>
+    const items = Array.from(document.querySelectorAll('#accordion details'));
+    const status = document.getElementById('status');
+
+    function announce() {
+      const count = items.filter((item) => item.open).length;
+      status.textContent = `6項目中${count}項目を開いています。`;
+    }
+
+    document.getElementById('open-all').addEventListener('click', () => {
+      items.forEach((item) => { item.open = true; });
+      announce();
+    });
+
+    document.getElementById('close-all').addEventListener('click', () => {
+      items.forEach((item) => { item.open = false; });
+      announce();
+    });
+
+    items.forEach((item) => item.addEventListener('toggle', announce));
+    announce();
+  </script>
+</body>
+</html>
