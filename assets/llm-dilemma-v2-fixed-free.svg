@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="460" viewBox="0 0 1200 460" role="img" aria-labelledby="title desc">
+  <title id="title">固定する中心と自由にする外側</title>
+  <desc id="desc">独自概念の意味、出所、判定権、安全境界を中心に固定し、その外側では問いの分解、知識選択、説明、仮説を自由に探索させる図。</desc>
+  <defs>
+    <radialGradient id="halo" cx="50%" cy="50%" r="50%">
+      <stop offset="0" stop-color="#FFFDF8"/>
+      <stop offset="0.56" stop-color="#F5EBDD"/>
+      <stop offset="1" stop-color="#EEF3F0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1200" height="460" rx="30" fill="#F7F2E8"/>
+  <text x="600" y="50" text-anchor="middle" fill="#2E2A25" font-size="24" font-weight="700" font-family="-apple-system,BlinkMacSystemFont,'Hiragino Sans','Yu Gothic',sans-serif">壊れてはいけない中心は硬く、外側は自由に</text>
+  <text x="600" y="78" text-anchor="middle" fill="#756C62" font-size="14" font-family="-apple-system,BlinkMacSystemFont,'Hiragino Sans','Yu Gothic',sans-serif">忠実な再現と自由な推論を、同じ場所で管理しない</text>
+
+  <circle cx="600" cy="265" r="160" fill="url(#halo)" stroke="#DED5C9" stroke-width="2"/>
+  <circle cx="600" cy="265" r="86" fill="#2E2A25"/>
+  <text x="600" y="246" text-anchor="middle" fill="#FFFDF8" font-size="20" font-weight="700" font-family="sans-serif">固定する中心</text>
+  <text x="600" y="276" text-anchor="middle" fill="#F1E9DD" font-size="13" font-family="sans-serif">意味・出所・判定権</text>
+  <text x="600" y="299" text-anchor="middle" fill="#F1E9DD" font-size="13" font-family="sans-serif">推論範囲・安全境界</text>
+
+  <g font-family="sans-serif" font-size="13" font-weight="700">
+    <circle cx="600" cy="115" r="41" fill="#F7E4C4"/><text x="600" y="120" text-anchor="middle" fill="#855717">問いの分解</text>
+    <circle cx="742" cy="168" r="41" fill="#DCEBF2"/><text x="742" y="164" text-anchor="middle" fill="#4F7F9C">知識領域</text><text x="742" y="181" text-anchor="middle" fill="#4F7F9C">の選択</text>
+    <circle cx="780" cy="315" r="41" fill="#DEEEE5"/><text x="780" y="320" text-anchor="middle" fill="#5F8B76">説明の構成</text>
+    <circle cx="684" cy="410" r="41" fill="#E8E1EF"/><text x="684" y="415" text-anchor="middle" fill="#75658D">新しい仮説</text>
+    <circle cx="516" cy="410" r="41" fill="#F2DDDD"/><text x="516" y="406" text-anchor="middle" fill="#A96768">見方を変える</text><text x="516" y="423" text-anchor="middle" fill="#A96768">切り口</text>
+    <circle cx="420" cy="315" r="41" fill="#ECE5D8"/><text x="420" y="320" text-anchor="middle" fill="#756C62">比較材料</text>
+    <circle cx="458" cy="168" r="41" fill="#F3DFD3"/><text x="458" y="173" text-anchor="middle" fill="#B96C48">未知への探索</text>
+  </g>
+
+  <path d="M600 156v23M708 188l-16 17M742 295l-24-4M655 383l-14-24M545 383l14-24M458 295l24-4M492 188l16 17" stroke="#C98A3D" stroke-width="4" stroke-linecap="round"/>
+
+  <rect x="96" y="150" width="245" height="215" rx="24" fill="#FFFDF8" stroke="#E4D7C6" stroke-width="2"/>
+  <text x="218" y="190" text-anchor="middle" fill="#855717" font-size="18" font-weight="700" font-family="sans-serif">固定しないと壊れるもの</text>
+  <g fill="#2E2A25" font-size="14" font-family="sans-serif">
+    <text x="130" y="230">● 独自概念の意味</text>
+    <text x="130" y="263">● 本人発言とAI推論の区別</text>
+    <text x="130" y="296">● 誰が何を判定できるか</text>
+    <text x="130" y="329">● 越えてはいけない境界</text>
+  </g>
+
+  <rect x="859" y="150" width="245" height="215" rx="24" fill="#FFFDF8" stroke="#D4E3DA" stroke-width="2"/>
+  <text x="981" y="190" text-anchor="middle" fill="#5F8B76" font-size="18" font-weight="700" font-family="sans-serif">自由にしないと死ぬもの</text>
+  <g fill="#2E2A25" font-size="14" font-family="sans-serif">
+    <text x="893" y="230">● 問いの新しい分解</text>
+    <text x="893" y="263">● 複数領域からの説明</text>
+    <text x="893" y="296">● 未知への仮説生成</text>
+    <text x="893" y="329">● 認識を変える切り口</text>
+  </g>
+</svg>
