@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Bodywork工学のワークショップと個別アドバイスを、見やすいアコーディオンサマリーでまとめたライブラリー" />
+  <meta name="theme-color" content="#f7f4ee" />
+  <title>Bodywork Summary Library</title>
+  <style>
+    :root{
+      --paper:#f7f4ee;
+      --panel:#fffdf8;
+      --ink:#2e2a25;
+      --muted:#756c62;
+      --amber:#c98a3d;
+      --amber-dark:#855717;
+      --amber-soft:#f2e2cc;
+      --mint:#dfece5;
+      --blue:#e0e8ee;
+      --line:#ded5c9;
+      --shadow:0 14px 34px rgba(64,47,30,.09);
+    }
+    *{box-sizing:border-box}
+    html{background:var(--paper)}
+    body{
+      margin:0;
+      color:var(--ink);
+      background:
+        radial-gradient(circle at 8% 0%,rgba(201,138,61,.16),transparent 28rem),
+        radial-gradient(circle at 100% 30%,rgba(170,198,183,.16),transparent 25rem),
+        var(--paper);
+      font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic","Noto Sans JP",sans-serif;
+      line-height:1.75;
+    }
+    main{width:min(920px,calc(100% - 28px));margin:0 auto;padding:38px 0 76px}
+    .eyebrow{display:flex;align-items:center;gap:9px;margin:0 0 12px;color:var(--amber);font-size:.78rem;font-weight:850;letter-spacing:.13em;text-transform:uppercase}
+    .eyebrow::before{width:9px;height:9px;border-radius:50%;background:var(--amber);box-shadow:0 0 0 6px rgba(201,138,61,.13);content:""}
+    h1{margin:0;font-family:"Yu Mincho","Hiragino Mincho ProN",serif;font-size:clamp(2rem,7vw,3.5rem);line-height:1.25}
+    .lead{max-width:720px;margin:18px 0 34px;color:#554c43;font-size:1.02rem}
+    .section-head{display:flex;align-items:end;justify-content:space-between;gap:16px;margin:31px 0 12px}
+    h2{margin:0;font-size:1.15rem}
+    .section-head p{margin:0;color:var(--muted);font-size:.8rem}
+    .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+    .card{display:flex;min-height:210px;flex-direction:column;padding:20px;border:1px solid var(--line);border-radius:20px;background:var(--panel);box-shadow:var(--shadow)}
+    .meta{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:13px;color:var(--muted);font-size:.76rem}
+    .kind{display:inline-flex;padding:5px 9px;border-radius:999px;background:var(--amber-soft);color:var(--amber-dark);font-weight:850}
+    .kind.workshop{background:var(--blue);color:#4e6472}
+    .card h3{margin:0 0 10px;font-size:1.08rem;line-height:1.5}
+    .card p{margin:0 0 18px;color:#625a51;font-size:.9rem}
+    .tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:auto;margin-bottom:16px}
+    .tags span{padding:4px 8px;border-radius:999px;background:#f3ede4;color:#716354;font-size:.7rem;font-weight:750}
+    .button{display:inline-flex;align-items:center;align-self:flex-start;padding:9px 14px;border-radius:999px;background:var(--amber);color:white;font-size:.82rem;font-weight:850;text-decoration:none;box-shadow:0 6px 16px rgba(201,138,61,.24)}
+    .button::after{margin-left:7px;content:"→"}
+    .note{margin-top:28px;padding:15px 17px;border:1px dashed rgba(201,138,61,.55);border-radius:15px;background:rgba(255,255,255,.46);color:#6d5a45;font-size:.85rem}
+    footer{margin-top:30px;color:var(--muted);font-size:.74rem;text-align:center}
+    @media(max-width:660px){
+      main{padding-top:27px}
+      .grid{grid-template-columns:1fr}
+      .section-head{align-items:flex-start;flex-direction:column;gap:3px}
+      .card{min-height:0}
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <p class="eyebrow">Bodywork Engineering</p>
+    <h1>Bodywork Summary Library</h1>
+    <p class="lead">施術やワークショップで扱った身体の見方と復習ポイントを、必要なところだけ開いて読めるアコーディオンサマリーにまとめています。</p>
+
+    <section aria-labelledby="advice-title">
+      <div class="section-head">
+        <h2 id="advice-title">Advice Summary</h2>
+        <p>個別セッションの復習用</p>
+      </div>
+      <div class="grid">
+        <article class="card">
+          <div class="meta"><span class="kind">Advice</span><time datetime="2026-07-25">2026.07.25</time></div>
+          <h3>ターンの勢いを受け止める、胸郭と腕のつながり</h3>
+          <p>脇腹をアンカーにして、胴体から腕を動かす順序と、上部肋骨を縦横にひらく復習を整理しました。</p>
+          <div class="tags"><span>ターン</span><span>胸郭</span><span>側屈</span><span>腕の外旋</span></div>
+          <a class="button" href="advice/turn-anchor-ribcage-2026-07-25/">サマリーを見る</a>
+        </article>
+      </div>
+    </section>
+
+    <section aria-labelledby="workshop-title">
+      <div class="section-head">
+        <h2 id="workshop-title">Workshop Summary</h2>
+        <p>ワークショップ・体操の記録</p>
+      </div>
+      <div class="grid">
+        <article class="card">
+          <div class="meta"><span class="kind workshop">Workshop</span><time datetime="2026-07-19">2026.07.19</time></div>
+          <h3>胸郭から腕を外へひらき、首を解放する</h3>
+          <p>体重移動と胸郭の変形から腕を外旋させ、肩甲骨と肘が自然に収まる位置へつなげます。</p>
+          <div class="tags"><span>胸郭</span><span>腕の外旋</span><span>肩甲骨</span></div>
+          <a class="button" href="workshops/chest-led-arm-external-rotation-2026-07-19/">サマリーを見る</a>
+        </article>
+
+        <article class="card">
+          <div class="meta"><span class="kind workshop">Workshop</span><time datetime="2026-07-19">2026.07.19</time></div>
+          <h3>足裏の内側から、股関節・胸郭へつなぐ</h3>
+          <p>足裏、内もも、股関節、骨盤、胸郭をつなぎ、片足支持やスイングを全身運動へ統合します。</p>
+          <div class="tags"><span>足裏</span><span>股関節</span><span>腰割り</span><span>胸郭</span></div>
+          <a class="button" href="workshops/inner-line-hip-chest-workshop-2026-07-19/">サマリーを見る</a>
+        </article>
+      </div>
+    </section>
+
+    <p class="note">公開ページにはクライアント名を表示せず、GitHub内の記録フォルダーだけで管理しています。</p>
+    <footer>Bodywork Summary Library</footer>
+  </main>
+</body>
+</html>
