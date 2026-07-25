@@ -1,0 +1,361 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="回転を止める土台と、胸郭から腕へつながる動きを整理したBodyworkアドバイスサマリー" />
+  <meta name="robots" content="noindex,nofollow" />
+  <meta name="theme-color" content="#f7f4ee" />
+  <title>回りすぎを止めるために、胴体から腕を動かす</title>
+  <style>
+    :root{
+      --paper:#f7f4ee;
+      --panel:#fffdf8;
+      --ink:#2e2a25;
+      --muted:#766d63;
+      --line:#ded5c9;
+      --amber:#c98a3d;
+      --amber-dark:#80531d;
+      --amber-soft:#f3e4cc;
+      --mint:#dfece5;
+      --mint-ink:#466c5a;
+      --rose:#f2dfdc;
+      --rose-ink:#8d5752;
+      --lilac:#e9e2ee;
+      --lilac-ink:#705d81;
+      --shadow:0 14px 34px rgba(65,49,32,.08);
+    }
+
+    *{box-sizing:border-box}
+    html{background:var(--paper);scroll-behavior:smooth}
+    body{
+      margin:0;
+      color:var(--ink);
+      background:
+        radial-gradient(circle at 5% 0%,rgba(201,138,61,.16),transparent 28rem),
+        radial-gradient(circle at 100% 38%,rgba(95,139,118,.12),transparent 27rem),
+        var(--paper);
+      font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic","Noto Sans JP",sans-serif;
+      line-height:1.8;
+    }
+
+    main{width:min(820px,calc(100% - 28px));margin:0 auto;padding:30px 0 72px}
+    .eyebrow{display:flex;align-items:center;gap:9px;margin:0 0 12px;color:var(--amber);font-size:.76rem;font-weight:850;letter-spacing:.12em;text-transform:uppercase}
+    .eyebrow::before{width:9px;height:9px;border-radius:50%;background:var(--amber);box-shadow:0 0 0 6px rgba(201,138,61,.12);content:""}
+    h1{margin:0;font-family:"Yu Mincho","Hiragino Mincho ProN",serif;font-size:clamp(1.82rem,6.4vw,3.05rem);line-height:1.33;letter-spacing:.01em}
+    .subtitle{margin:12px 0 0;color:var(--muted);font-size:clamp(.95rem,2.5vw,1.06rem)}
+
+    .hero{margin-top:24px;padding:18px;border:1px solid var(--line);border-radius:24px;background:rgba(255,253,248,.88);box-shadow:var(--shadow)}
+    .hero-copy{display:grid;gap:7px;margin-bottom:15px;padding:15px;border-radius:17px;background:#302c27;color:#fff;text-align:center;font-weight:850;line-height:1.55}
+    .hero-copy span:nth-child(2){color:#f1c58d}
+    .hero-svg{display:block;width:100%;height:auto}
+    .tags{display:flex;flex-wrap:wrap;justify-content:center;gap:7px;margin-top:13px}
+    .tags span{padding:6px 10px;border-radius:999px;background:var(--amber-soft);color:#6e4a1e;font-size:.73rem;font-weight:800}
+
+    .lead{margin:22px 0 24px;padding:18px 20px;border-left:4px solid var(--amber);border-radius:0 17px 17px 0;background:rgba(255,253,248,.84);box-shadow:0 8px 22px rgba(65,49,32,.04)}
+    .lead strong{display:block;margin-bottom:5px}
+    .lead p{margin:0;color:#514941}
+
+    .flow{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:7px;margin:0 0 25px;padding:13px;border:1px dashed rgba(201,138,61,.55);border-radius:16px;background:rgba(255,255,255,.42);font-size:.78rem;font-weight:850;color:#6c5943}
+    .flow span{padding:5px 9px;border-radius:999px;background:var(--panel)}
+    .flow b{color:var(--amber)}
+
+    .controls{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px}
+    .controls p{margin:0;color:var(--muted);font-size:.78rem}
+    .buttons{display:flex;gap:7px}
+    button{appearance:none;border:1px solid var(--line);border-radius:999px;background:var(--panel);color:var(--ink);padding:8px 12px;font:inherit;font-size:.74rem;font-weight:800;cursor:pointer}
+    button:hover{border-color:rgba(201,138,61,.7)}
+    button:focus-visible,summary:focus-visible,a:focus-visible{outline:3px solid rgba(201,138,61,.28);outline-offset:2px}
+
+    .accordion{display:grid;gap:12px}
+    details{--tone:var(--amber);--soft:var(--amber-soft);overflow:hidden;border:1px solid var(--line);border-radius:20px;background:var(--panel);box-shadow:var(--shadow)}
+    details:nth-child(2){--tone:var(--mint-ink);--soft:var(--mint)}
+    details:nth-child(3){--tone:var(--lilac-ink);--soft:var(--lilac)}
+    details:nth-child(4){--tone:var(--rose-ink);--soft:var(--rose)}
+    details:nth-child(5){--tone:var(--amber-dark);--soft:var(--amber-soft)}
+    details[open]{border-color:color-mix(in srgb,var(--tone) 58%,var(--line))}
+    summary{display:grid;grid-template-columns:48px minmax(0,1fr) 30px;align-items:center;gap:12px;min-height:86px;padding:13px 15px;cursor:pointer;list-style:none;user-select:none}
+    summary::-webkit-details-marker{display:none}
+    .section-icon{display:grid;width:46px;height:46px;place-items:center;border-radius:15px;background:var(--soft);color:var(--tone);font-family:Georgia,serif;font-size:1.2rem;font-weight:850}
+    .summary-copy b{display:block;color:var(--tone);font-size:.67rem;letter-spacing:.08em}
+    .summary-copy strong{display:block;font-size:1rem;line-height:1.4}
+    .summary-copy small{display:block;margin-top:3px;color:var(--muted);font-size:.75rem;line-height:1.45}
+    .plus{position:relative;width:30px;height:30px;border-radius:50%;background:var(--soft)}
+    .plus::before,.plus::after{position:absolute;top:14px;left:8px;width:14px;height:2px;border-radius:2px;background:var(--tone);content:"";transition:transform .18s ease}
+    .plus::after{transform:rotate(90deg)}
+    details[open] .plus::after{transform:rotate(0)}
+
+    .body{padding:18px;border-top:1px solid #ece4da}
+    .body-grid{display:grid;grid-template-columns:1.12fr .88fr;gap:16px}
+    .body h2{margin:0 0 5px;color:var(--tone);font-size:.89rem;letter-spacing:.02em}
+    .body p{margin:5px 0 13px;font-size:.89rem}
+    .body ul,.body ol{margin:6px 0 14px;padding-left:1.25rem;font-size:.86rem}
+    .body li+li{margin-top:5px}
+    .essence{padding:12px 13px;border-radius:14px;background:var(--soft);font-size:.82rem;line-height:1.65}
+    .mini{display:grid;min-height:175px;place-items:center;padding:13px;border:1px dashed color-mix(in srgb,var(--tone) 43%,var(--line));border-radius:17px;background:color-mix(in srgb,var(--soft) 55%,white)}
+    .mini svg{display:block;width:100%;max-width:250px;height:auto}
+    .chain{margin:13px 0;padding:13px 14px;border-radius:14px;background:#332f2a;color:#fff;font-size:.84rem;font-weight:850;text-align:center;line-height:1.65}
+    .checklist{display:grid;gap:8px;margin-top:10px}
+    .checklist div{padding:10px 12px;border:1px solid var(--line);border-radius:12px;background:#fff;font-size:.82rem}
+    .checklist b{color:var(--tone)}
+
+    .practice{margin-top:24px;padding:18px;border:1px solid var(--line);border-radius:20px;background:var(--panel);box-shadow:var(--shadow)}
+    .practice h2{margin:0 0 8px;color:var(--amber-dark);font-size:1rem}
+    .practice p{margin:0 0 12px;font-size:.87rem}
+    .practice ol{margin:0;padding-left:1.3rem;font-size:.86rem}
+    .practice li+li{margin-top:6px}
+    .safety{margin-top:13px;padding:11px 13px;border-radius:13px;background:#f4eee5;color:#62584d;font-size:.78rem}
+
+    .closing{margin-top:24px;padding:19px;border-radius:21px;background:linear-gradient(135deg,#332f2a,#4b433a);color:white;text-align:center}
+    .closing strong{display:block;font-size:1rem;line-height:1.65}
+    .closing p{margin:8px 0 0;color:#e9ddd0;font-size:.82rem;line-height:1.65}
+    .back{display:inline-flex;margin-top:20px;color:var(--amber-dark);font-size:.82rem;font-weight:800;text-decoration:none}
+    footer{margin-top:27px;color:var(--muted);font-size:.72rem;text-align:center}
+
+    @media(max-width:720px){.body-grid{grid-template-columns:1fr}}
+    @media(max-width:500px){
+      main{padding-top:22px}
+      .hero{padding:14px}
+      summary{grid-template-columns:41px minmax(0,1fr) 27px;gap:9px;padding:12px}
+      .section-icon{width:40px;height:40px;border-radius:12px}
+      .body{padding:15px}
+    }
+    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.plus::after{transition:none}}
+  </style>
+</head>
+<body>
+  <main>
+    <p class="eyebrow">Bodywork Advice</p>
+    <h1>回りすぎを止めるために、<br>胴体から腕を動かす</h1>
+    <p class="subtitle">ターンの制動と、胸郭・肩甲骨・肘・腕のつながりを作る</p>
+
+    <section class="hero" aria-label="今回の要点">
+      <div class="hero-copy">
+        <span>勢いを腕や脚だけで止めない。</span>
+        <span>下半身をアンカーにして、胸郭から動きを始める。</span>
+        <span>腕は、胴体の動きについてくる。</span>
+      </div>
+      <svg class="hero-svg" viewBox="0 0 760 300" role="img" aria-label="回転の勢いを下半身で受け止め、胸郭から肘、腕へ順番に動きを伝える図">
+        <defs>
+          <marker id="arrow" markerWidth="9" markerHeight="9" refX="8" refY="3" orient="auto"><path d="M0 0L0 6L9 3z" fill="#c98a3d"/></marker>
+        </defs>
+        <rect x="28" y="45" width="202" height="205" rx="25" fill="#f3e4cc" stroke="#c98a3d" stroke-width="2"/>
+        <circle cx="129" cy="88" r="25" fill="#fffdf8" stroke="#80531d" stroke-width="3"/>
+        <path d="M129 113v72M89 150h80M105 185l-29 47M153 185l29 47" fill="none" stroke="#80531d" stroke-width="7" stroke-linecap="round"/>
+        <path d="M72 238h114" stroke="#80531d" stroke-width="9" stroke-linecap="round"/>
+        <path d="M51 174c-21-46-9-93 24-120" fill="none" stroke="#a96666" stroke-width="7" stroke-linecap="round" marker-end="url(#arrow)"/>
+        <text x="129" y="277" text-anchor="middle" fill="#80531d" font-size="18" font-weight="800">下半身をアンカーに</text>
+
+        <path d="M249 148h76" stroke="#c98a3d" stroke-width="5" stroke-linecap="round" marker-end="url(#arrow)"/>
+        <text x="287" y="130" text-anchor="middle" fill="#766d63" font-size="14" font-weight="700">分離して止まる</text>
+
+        <rect x="338" y="45" width="394" height="205" rx="25" fill="#fffdf8" stroke="#ded5c9" stroke-width="2"/>
+        <ellipse cx="446" cy="146" rx="69" ry="83" fill="#dfece5" stroke="#466c5a" stroke-width="3"/>
+        <path d="M411 100c20 14 49 14 70 0M398 128c30 18 67 18 96 0M395 158c33 20 71 20 103 0M405 190c26 16 57 16 82 0" fill="none" stroke="#466c5a" stroke-width="4" stroke-linecap="round"/>
+        <text x="446" y="231" text-anchor="middle" fill="#466c5a" font-size="17" font-weight="800">胸郭が蛇腹のように動く</text>
+        <path d="M520 143h57" stroke="#c98a3d" stroke-width="5" stroke-linecap="round" marker-end="url(#arrow)"/>
+        <circle cx="606" cy="143" r="22" fill="#e9e2ee" stroke="#705d81" stroke-width="3"/>
+        <path d="M627 143h72" stroke="#705d81" stroke-width="9" stroke-linecap="round"/>
+        <circle cx="705" cy="143" r="8" fill="#705d81"/>
+        <text x="638" y="192" text-anchor="middle" fill="#705d81" font-size="17" font-weight="800">肘 → 腕</text>
+        <text x="535" y="85" text-anchor="middle" fill="#c98a3d" font-size="16" font-weight="800">胴体が先、腕はあと</text>
+      </svg>
+      <div class="tags"><span>制動</span><span>胸郭の側屈</span><span>腕の外旋</span><span>体幹と肘の連動</span></div>
+    </section>
+
+    <section class="lead">
+      <strong>今回の中心テーマ</strong>
+      <p>ターンの勢いで身体全体が流れてしまう場面に対し、下半身と胴体を分けて止まる土台を作り、その上で胸骨・鎖骨・肋骨から肘、腕へ動きを伝える練習を行いました。</p>
+    </section>
+
+    <div class="flow" aria-label="動きの順番">
+      <span>下半身で止まる</span><b>→</b><span>胸郭が動く</span><b>→</b><span>肘がつながる</span><b>→</b><span>腕が上がる</span>
+    </div>
+
+    <div class="controls">
+      <p id="status" aria-live="polite">5項目中、1項目を開いています</p>
+      <div class="buttons">
+        <button id="openAll" type="button">すべて開く</button>
+        <button id="closeAll" type="button">すべて閉じる</button>
+      </div>
+    </div>
+
+    <section class="accordion" aria-label="アドバイスサマリー">
+      <details open>
+        <summary>
+          <span class="section-icon">1</span>
+          <span class="summary-copy"><b>TURN CONTROL</b><strong>回りすぎる理由を整理する</strong><small>勢いが残り、下半身まで一緒に流れていた</small></span>
+          <span class="plus" aria-hidden="true"></span>
+        </summary>
+        <div class="body">
+          <div class="body-grid">
+            <div>
+              <h2>起きていたこと</h2>
+              <p>ターンや回転の勢いがついたあと、本来止めたい位置を越えて、上半身だけでなく下半身も一緒に回り続ける傾向が見られました。</p>
+              <h2>今回の見立て</h2>
+              <p>「回らないように頑張る」より、下半身は止まりながら胴体や腕は必要な範囲で動けるように、身体の役割を分けることが重要です。</p>
+              <div class="essence"><strong>要点：</strong>勢いを消すのではなく、どこで受け止め、どこを動かし続けるかを分けます。</div>
+            </div>
+            <div class="mini">
+              <svg viewBox="0 0 250 180" role="img" aria-label="全身が一緒に流れる状態から、下半身を止めて上半身を分離する図">
+                <path d="M35 140c5-75 45-108 91-108 53 0 91 39 91 94" fill="none" stroke="#a96666" stroke-width="10" stroke-linecap="round"/>
+                <path d="M198 103l21 24-31 7" fill="#a96666"/>
+                <circle cx="78" cy="75" r="18" fill="#f2dfdc" stroke="#8d5752" stroke-width="3"/>
+                <path d="M78 94v48M54 116h48" stroke="#8d5752" stroke-width="6" stroke-linecap="round"/>
+                <path d="M45 151h68" stroke="#8d5752" stroke-width="8" stroke-linecap="round"/>
+                <text x="125" y="174" text-anchor="middle" fill="#766d63" font-size="14" font-weight="700">脚まで流れる → 土台で受け止める</text>
+              </svg>
+            </div>
+          </div>
+        </div>
+      </details>
+
+      <details>
+        <summary>
+          <span class="section-icon">2</span>
+          <span class="summary-copy"><b>ANCHOR</b><strong>下半身をアンカーにする</strong><small>腕が後ろへ行っても、体幹との接続を残す</small></span>
+          <span class="plus" aria-hidden="true"></span>
+        </summary>
+        <div class="body">
+          <div class="body-grid">
+            <div>
+              <h2>行ったこと</h2>
+              <p>脇腹付近へ手を当て、肘と体幹のつながりを確認しました。腕が後ろへ動いても、胸から脇腹のラインがほどけず、体幹側がアンカーとして残る感覚を探しました。</p>
+              <h2>避けたい動き</h2>
+              <ul>
+                <li>腕を止めるために肩だけを固める</li>
+                <li>手で強く押して、身体全体を一枚に固定する</li>
+                <li>勢いに負けて、骨盤と脚まで同じ方向へ流す</li>
+              </ul>
+              <div class="essence"><strong>要点：</strong>固める場所を増やすのではなく、下半身は止まり、胸郭と腕はつながったまま動ける状態を作ります。</div>
+            </div>
+            <div class="mini">
+              <svg viewBox="0 0 250 180" role="img" aria-label="骨盤を安定させ、胸から肘へつながる線を示す図">
+                <rect x="78" y="125" width="94" height="28" rx="14" fill="#dfece5" stroke="#466c5a" stroke-width="3"/>
+                <ellipse cx="125" cy="87" rx="45" ry="53" fill="#fffdf8" stroke="#466c5a" stroke-width="3"/>
+                <path d="M125 70c31 5 54 19 85 43" fill="none" stroke="#c98a3d" stroke-width="8" stroke-linecap="round"/>
+                <circle cx="210" cy="113" r="9" fill="#c98a3d"/>
+                <path d="M93 128h64" stroke="#466c5a" stroke-width="9" stroke-linecap="round"/>
+                <text x="125" y="174" text-anchor="middle" fill="#466c5a" font-size="14" font-weight="800">骨盤は残る／胸から肘はつながる</text>
+              </svg>
+            </div>
+          </div>
+        </div>
+      </details>
+
+      <details>
+        <summary>
+          <span class="section-icon">3</span>
+          <span class="summary-copy"><b>RIBCAGE LINK</b><strong>胸骨・鎖骨・肋骨から肘へつなぐ</strong><small>肩だけでなく、胸の前から腕を動かす</small></span>
+          <span class="plus" aria-hidden="true"></span>
+        </summary>
+        <div class="body">
+          <h2>つながりの範囲</h2>
+          <p>胸骨、鎖骨の下、上部肋骨、脇の下、肘までを一つの連続したエリアとして扱いました。腕だけを後ろへ引くのではなく、胸の前側が横へ開くことで腕の外旋が生まれる動きを確認しました。</p>
+          <h2>「蛇腹」のイメージ</h2>
+          <p>肋骨は一枚板ではなく、一本ずつの間隔が少しずつ広がることで側屈や腕の挙上を助けます。肩甲骨が上方向へ動き、上部肋骨が縦へ伸びることも、腕が上がるための一部です。</p>
+          <div class="chain">胸骨・鎖骨下が開く → 肋骨の間が広がる → 肩甲骨が上へ動く → 肘・腕がついてくる</div>
+          <div class="checklist">
+            <div><b>横方向：</b>腕を外旋し、胸の前側を横へ広げる</div>
+            <div><b>縦方向：</b>肩甲骨と上部肋骨が上へ伸びる余地を作る</div>
+            <div><b>注意：</b>首をすくめて肩を持ち上げることとは別です</div>
+          </div>
+        </div>
+      </details>
+
+      <details>
+        <summary>
+          <span class="section-icon">4</span>
+          <span class="summary-copy"><b>TIMING</b><strong>腕は、胴体よりほんの少しあと</strong><small>手を上げず、側屈の初動から腕が上がる</small></span>
+          <span class="plus" aria-hidden="true"></span>
+        </summary>
+        <div class="body">
+          <div class="body-grid">
+            <div>
+              <h2>大きな差を作る小さな順番</h2>
+              <p>見た目はほぼ同じでも、手を先に動かすか、胴体を先に動かすかで、身体の使われ方が変わります。今回は「胴体がほんの少し先、腕はあと」を練習しました。</p>
+              <h2>動きの順番</h2>
+              <ol>
+                <li>胸郭まわりの小さな側屈を始める</li>
+                <li>胸から鎖骨、肘までのつながりを保つ</li>
+                <li>その動きの結果として腕が上がる</li>
+              </ol>
+              <div class="essence"><strong>合言葉：</strong>「手を上げる」のではなく、「脇腹と肋骨を長くしたら、手が上がってくる」。</div>
+            </div>
+            <div class="mini">
+              <svg viewBox="0 0 250 180" role="img" aria-label="胸郭、肘、手の順番を示す図">
+                <circle cx="48" cy="82" r="27" fill="#f2dfdc" stroke="#8d5752" stroke-width="3"/>
+                <circle cx="125" cy="82" r="22" fill="#e9e2ee" stroke="#705d81" stroke-width="3"/>
+                <circle cx="202" cy="82" r="18" fill="#f3e4cc" stroke="#80531d" stroke-width="3"/>
+                <path d="M78 82h22M151 82h27" stroke="#c98a3d" stroke-width="5" stroke-linecap="round"/>
+                <path d="M96 74l9 8-9 8M174 74l9 8-9 8" fill="none" stroke="#c98a3d" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                <text x="48" y="127" text-anchor="middle" fill="#8d5752" font-size="14" font-weight="800">胸郭</text>
+                <text x="125" y="127" text-anchor="middle" fill="#705d81" font-size="14" font-weight="800">肘</text>
+                <text x="202" y="127" text-anchor="middle" fill="#80531d" font-size="14" font-weight="800">手</text>
+                <text x="125" y="162" text-anchor="middle" fill="#766d63" font-size="13">先に動く順番を変える</text>
+              </svg>
+            </div>
+          </div>
+        </div>
+      </details>
+
+      <details>
+        <summary>
+          <span class="section-icon">5</span>
+          <span class="summary-copy"><b>HOME PRACTICE</b><strong>鴨居・ドア枠を使った胸郭ストレッチ</strong><small>腕で引かず、胸を横と上へ開く</small></span>
+          <span class="plus" aria-hidden="true"></span>
+        </summary>
+        <div class="body">
+          <h2>家でのやり方</h2>
+          <ol>
+            <li>手が届く鴨居や丈夫なドア枠の上部に、片手を軽く掛ける</li>
+            <li>腕でぶら下がらず、足元を安定させる</li>
+            <li>体重をゆっくり前へ移し、胸の前側を横へ開く</li>
+            <li>同時に脇腹から上部肋骨を上へ長くする</li>
+            <li>呼吸が止まらない範囲で数呼吸し、左右を比べる</li>
+          </ol>
+          <h2>うまくいっている目安</h2>
+          <ul>
+            <li>手や肩だけで強く引っ張っていない</li>
+            <li>胸骨・鎖骨下・脇の下が広がる</li>
+            <li>首を固めず、呼吸を続けられる</li>
+            <li>終わったあと、腕を上げる初動が胴体から始まりやすい</li>
+          </ul>
+          <div class="essence"><strong>量より質：</strong>強く伸ばすより、「胸が横へ開く」と「肋骨が上へ伸びる」が同時に起こる小さな位置を探します。</div>
+        </div>
+      </details>
+    </section>
+
+    <section class="practice">
+      <h2>復習は、この2つだけ</h2>
+      <p>一度に多く直そうとせず、動きの順番と前後差を確認します。</p>
+      <ol>
+        <li><strong>ドア枠ストレッチ：</strong>胸を横・上へ開き、上部肋骨の圧縮をほどく。</li>
+        <li><strong>ゆっくり腕上げ：</strong>胸郭の側屈を先に始め、腕があとから上がるかを見る。</li>
+      </ol>
+      <div class="safety">丈夫さを確認できない鴨居やドア枠には体重を預けないでください。鋭い痛み、しびれ、息苦しさが出る場合は中止し、無理に可動域を広げないでください。</div>
+    </section>
+
+    <section class="closing">
+      <strong>止まる力と、動き続ける力を分ける。</strong>
+      <p>下半身をアンカーにし、胸郭から腕へ動きを伝えられると、回転の勢いに全身が流されにくくなります。正しい形を固定するより、前後で「止まりやすさ」「胸の広がり」「腕の軽さ」がどう変わるかを観察してください。</p>
+    </section>
+
+    <a class="back" href="../">← セッション記録へ戻る</a>
+    <footer>Bodywork Advice Summary · Session 01</footer>
+  </main>
+
+  <script>
+    const items=[...document.querySelectorAll('details')];
+    const status=document.getElementById('status');
+    const update=()=>{
+      const openCount=items.filter(item=>item.open).length;
+      status.textContent=`${items.length}項目中、${openCount}項目を開いています`;
+    };
+    document.getElementById('openAll').addEventListener('click',()=>{items.forEach(item=>item.open=true);update();});
+    document.getElementById('closeAll').addEventListener('click',()=>{items.forEach(item=>item.open=false);update();});
+    items.forEach(item=>item.addEventListener('toggle',update));
+    update();
+  </script>
+</body>
+</html>
