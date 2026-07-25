@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="ターンの勢いに流されず、脇腹・胸郭・肘のつながりで動きを受け止めるためのアドバイスサマリー" />
+  <meta name="theme-color" content="#f7f4ee" />
+  <title>ターンの勢いを受け止める、胸郭と腕のつながり</title>
+  <style>
+    :root{
+      --paper:#f7f4ee;
+      --panel:#fffdf8;
+      --ink:#2e2a25;
+      --muted:#756c62;
+      --amber:#c98a3d;
+      --amber-dark:#855717;
+      --amber-soft:#f2e2cc;
+      --mint:#dfece5;
+      --rose:#f3dfdc;
+      --blue:#e0e8ee;
+      --violet:#e8e1ed;
+      --line:#ded5c9;
+      --shadow:0 14px 34px rgba(64,47,30,.09);
+    }
+    *{box-sizing:border-box}
+    html{background:var(--paper);scroll-behavior:smooth}
+    body{
+      margin:0;
+      color:var(--ink);
+      background:
+        radial-gradient(circle at 8% 0%,rgba(201,138,61,.15),transparent 28rem),
+        radial-gradient(circle at 100% 35%,rgba(170,198,183,.16),transparent 25rem),
+        var(--paper);
+      font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic","Noto Sans JP",sans-serif;
+      line-height:1.8;
+    }
+    main{width:min(790px,calc(100% - 28px));margin:0 auto;padding:34px 0 72px}
+    .eyebrow{display:flex;align-items:center;gap:9px;margin:0 0 12px;color:var(--amber);font-size:.78rem;font-weight:850;letter-spacing:.13em;text-transform:uppercase}
+    .eyebrow::before{width:9px;height:9px;border-radius:50%;background:var(--amber);box-shadow:0 0 0 6px rgba(201,138,61,.13);content:""}
+    h1{margin:0;max-width:720px;font-family:"Yu Mincho","Hiragino Mincho ProN",serif;font-size:clamp(1.78rem,7vw,3rem);line-height:1.34;letter-spacing:.015em}
+    .lead{margin:22px 0 18px;padding:18px 20px;border-left:4px solid var(--amber);border-radius:0 16px 16px 0;background:rgba(255,253,248,.85);color:#514941;box-shadow:0 8px 22px rgba(63,49,34,.05)}
+    .thesis{margin:0 0 23px;padding:15px 17px;border:1px dashed rgba(201,138,61,.58);border-radius:15px;background:rgba(255,255,255,.44);font-weight:850;color:#6d5a45;text-align:center}
+    .flow{display:flex;flex-wrap:wrap;align-items:center;gap:7px;margin:0 0 25px;padding:13px 15px;border-radius:15px;background:#332f2a;color:#fff;font-size:.78rem;font-weight:800}
+    .flow span{padding:5px 9px;border-radius:999px;background:rgba(255,255,255,.1)}
+    .flow b{color:#efbd7b}
+    .toolbar{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px;margin:24px 0 12px}
+    .toolbar p{margin:0;color:var(--muted);font-size:.78rem}
+    .buttons{display:flex;gap:8px}
+    button{appearance:none;padding:8px 12px;border:1px solid var(--line);border-radius:999px;background:var(--panel);color:var(--ink);font:inherit;font-size:.76rem;font-weight:800;cursor:pointer}
+    button:hover{border-color:rgba(201,138,61,.7);background:#fff9ef}
+    button:focus-visible{outline:3px solid rgba(201,138,61,.3);outline-offset:2px}
+    .accordion{display:grid;gap:13px}
+    details{overflow:hidden;border:1px solid var(--line);border-radius:19px;background:var(--panel);box-shadow:var(--shadow)}
+    details[open]{border-color:rgba(201,138,61,.58)}
+    summary{display:grid;grid-template-columns:44px minmax(0,1fr) 30px;align-items:center;gap:12px;min-height:88px;padding:14px 15px;cursor:pointer;list-style:none;user-select:none}
+    summary::-webkit-details-marker{display:none}
+    summary:focus-visible{outline:3px solid rgba(201,138,61,.3);outline-offset:-3px}
+    .number{display:grid;width:44px;height:44px;place-items:center;border-radius:15px;color:#6a4b23;font-family:Georgia,serif;font-size:1.25rem;font-weight:850}
+    details:nth-child(1) .number{background:var(--amber-soft)}
+    details:nth-child(2) .number{background:var(--blue)}
+    details:nth-child(3) .number{background:var(--mint)}
+    details:nth-child(4) .number{background:var(--rose)}
+    details:nth-child(5) .number{background:var(--violet)}
+    details:nth-child(6) .number{background:var(--amber-soft)}
+    .summary-text strong{display:block;font-size:1.03rem;line-height:1.42}
+    .summary-text small{display:block;margin-top:4px;color:var(--muted);font-size:.78rem;line-height:1.45}
+    .plus{position:relative;width:30px;height:30px;border-radius:50%;background:#f4eee5}
+    .plus::before,.plus::after{position:absolute;top:14px;left:8px;width:14px;height:2px;border-radius:2px;background:var(--amber);content:"";transition:transform .18s ease}
+    .plus::after{transform:rotate(90deg)}
+    details[open] .plus::after{transform:rotate(0)}
+    .body{padding:3px 20px 23px 71px;border-top:1px solid #ede5db}
+    .badge{display:inline-flex;margin:16px 0 4px;padding:5px 10px;border-radius:999px;background:#f3ede4;color:#716354;font-size:.75rem;font-weight:800}
+    h2{margin:18px 0 5px;color:var(--amber-dark);font-size:.9rem;letter-spacing:.035em}
+    p{margin:6px 0 13px}
+    ul,ol{margin:7px 0 15px;padding-left:1.4rem}
+    li+li{margin-top:5px}
+    blockquote{margin:16px 0;padding:13px 15px;border-left:3px solid var(--amber);border-radius:0 12px 12px 0;background:#f5efe6;color:#63594d;font-size:.9rem}
+    .chain{margin:16px 0;padding:14px 15px;border-radius:14px;background:#332f2a;color:#fff;font-weight:850;text-align:center;line-height:1.65}
+    .tip{margin:13px 0;padding:12px 14px;border-radius:13px;background:var(--amber-soft);color:#62471f;font-size:.9rem;font-weight:750}
+    .safety{margin:15px 0 0;padding:13px 15px;border-radius:13px;background:#f3dfdc;color:#65433f;font-size:.88rem}
+    .quote{margin-top:20px;padding:17px 18px;border-radius:15px;background:linear-gradient(135deg,#c98a3d,#a96c27);color:#fff;font-size:1.02rem;font-weight:850;text-align:center;box-shadow:0 8px 20px rgba(201,138,61,.24)}
+    .back{display:inline-flex;margin-top:24px;color:var(--amber-dark);font-size:.85rem;font-weight:800;text-decoration:none}
+    .back:hover{text-decoration:underline}
+    footer{margin-top:24px;color:var(--muted);font-size:.75rem;text-align:center}
+    @media(max-width:560px){
+      main{padding-top:25px}
+      summary{grid-template-columns:39px minmax(0,1fr) 28px;gap:10px}
+      .number{width:39px;height:39px;border-radius:12px}
+      .body{padding:2px 16px 20px}
+      .toolbar{align-items:flex-start}
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <p class="eyebrow">Advice Summary</p>
+    <h1>ターンの勢いを受け止める、胸郭と腕のつながり</h1>
+    <p class="lead">回転の勢いに全身が引っ張られる状態に対して、下半身を無理に固めるのではなく、脇腹・胸郭・肘のつながりをアンカーとして使う練習を行いました。</p>
+    <p class="thesis">手を上げるのではなく、胴体が動いた結果として手が上がる。</p>
+
+    <div class="flow" aria-label="今回の動きの順序">
+      <span>脇腹が伸びる</span><b>→</b><span>肋骨が広がる</span><b>→</b><span>肩甲骨が動く</span><b>→</b><span>腕がついてくる</span>
+    </div>
+
+    <div class="toolbar">
+      <div>
+        <strong>今回のポイント</strong>
+        <p>必要な項目だけ開いて復習できます。</p>
+      </div>
+      <div class="buttons">
+        <button type="button" id="open-all">すべて開く</button>
+        <button type="button" id="close-all">すべて閉じる</button>
+      </div>
+    </div>
+
+    <section class="accordion" id="accordion" aria-label="ターンと胸郭のアドバイス">
+      <details open>
+        <summary>
+          <span class="number">1</span>
+          <span class="summary-text"><strong>なぜ止まりたい位置を越えるのか</strong><small>腕の勢いに、下半身まで引っ張られている</small></span>
+          <span class="plus" aria-hidden="true"></span>
+        </summary>
+        <div class="body">
+          <span class="badge">今回の課題</span>
+          <h2>起きていたこと</h2>
+          <p>ターンの勢いがついた後、腕と胴体が一つの塊のまま回り続け、止まりたい位置を越えて下半身まで向きが変わっていました。</p>
+          <h2>目指す状態</h2>
+          <p>下半身は止まりたい位置で支えながら、腕や上半身の勢いは胸郭の柔らかな変形で受け取る。全身を固めて止めるのではなく、動く部分と支える部分を分けます。</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>
+          <span class="number">2</span>
+          <span class="summary-text"><strong>脇腹を「アンカー」にする</strong><small>肘と体幹のつながりをほどかない</small></span>
+          <span class="plus" aria-hidden="true"></span>
+        </summary>
+        <div class="body">
+          <span class="badge">力の受け皿</span>
+          <h2>つなげたい範囲</h2>
+          <p>脇腹から胸、デコルテ、肘までを一続きのラインとして感じます。腕が後ろへ動いても、このラインが保たれると、体幹側で力を受け止めやすくなります。</p>
+          <h2>よくある違い</h2>
+          <p>脇を強く固めることが目的ではありません。押し返す力を増やすより、胸郭が動きながら肘とのつながりを保てることを優先します。</p>
+          <blockquote>アンカーは「動かない壁」ではなく、腕の勢いを受け取れる柔らかな土台です。</blockquote>
+        </div>
+      </details>
+
+      <details>
+        <summary>
+          <span class="number">3</span>
+          <span class="summary-text"><strong>胴体をコンマ一秒先に動かす</strong><small>手から始めると、腕だけの動きになる</small></span>
+          <span class="plus" aria-hidden="true"></span>
+        </summary>
+        <div class="body">
+          <span class="badge">動作の順序</span>
+          <h2>初動</h2>
+          <p>腕を持ち上げようとする前に、脇腹の側屈と肋骨の広がりを始めます。その結果として肩甲骨が上へ動き、腕が自然についてきます。</p>
+          <div class="chain">胴体が先 → 肋骨が広がる → 肩甲骨が動く → 腕が上がる</div>
+          <h2>小さな時間差が大きい</h2>
+          <p>実際の差はほんのわずかでも、手を先にするか、胴体を先にするかで、胸から肘までのつながりは大きく変わります。</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>
+          <span class="number">4</span>
+          <span class="summary-text"><strong>上部肋骨を縦と横にひらく</strong><small>モニター作業で縮まりやすい場所を動かす</small></span>
+          <span class="plus" aria-hidden="true"></span>
+        </summary>
+        <div class="body">
+          <span class="badge">胸郭の解放</span>
+          <h2>横方向</h2>
+          <p>腕を外旋させると、胸骨・鎖骨の下から上部肋骨が横へ広がりやすくなります。</p>
+          <h2>縦方向</h2>
+          <p>肩甲骨が上へ動き、脇腹が側屈すると、肋骨の間が蛇腹のように少しずつ広がります。</p>
+          <div class="tip">外旋で横へ。肩甲骨の上方移動と側屈で縦へ。二方向を組み合わせます。</div>
+          <p>長時間のモニター作業で圧縮されやすい、鎖骨下から第一〜第三肋骨付近を動かす意図です。</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>
+          <span class="number">5</span>
+          <span class="summary-text"><strong>ターンへ戻すときの確認</strong><small>固めずに止まり、腕は動けるか</small></span>
+          <span class="plus" aria-hidden="true"></span>
+        </summary>
+        <div class="body">
+          <span class="badge">動作への統合</span>
+          <h2>見るポイント</h2>
+          <ul>
+            <li>止まりたい位置で、足元と骨盤が支えになっているか</li>
+            <li>腕が後ろへ動いても、胸から肘のつながりが切れないか</li>
+            <li>胸郭は動けているか、息を止めて固めていないか</li>
+            <li>勢いを腕力で止めず、脇腹側で受け取れているか</li>
+          </ul>
+          <h2>小さく試す</h2>
+          <p>最初はターンを小さく、ゆっくり行います。止まる精度が保てる範囲から、少しずつ速度を戻します。</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>
+          <span class="number">6</span>
+          <span class="summary-text"><strong>家での復習：鴨居ストレッチ</strong><small>腕で引かず、胸郭を縦横にひらく</small></span>
+          <span class="plus" aria-hidden="true"></span>
+        </summary>
+        <div class="body">
+          <span class="badge">セルフワーク</span>
+          <h2>やり方</h2>
+          <ol>
+            <li>安定したドア枠や鴨居に片手を掛ける</li>
+            <li>体重を少し前へ移す</li>
+            <li>胸を横へひらき、脇腹から脇の下までを上へ長くする</li>
+            <li>腕だけでぶら下がらず、胸郭の動きに腕をついてこさせる</li>
+            <li>呼吸を続けられる範囲で、左右を比較する</li>
+          </ol>
+          <div class="safety"><strong>安全メモ：</strong>固定が不安定な場所は使わず、鋭い痛み・しびれ・関節の引っ掛かりが出た場合は中止してください。強く伸ばすより、小さな範囲で胸郭の変化を観察します。</div>
+        </div>
+      </details>
+    </section>
+
+    <div class="quote">胴体が先、腕はあと。脇腹で受け止め、胸郭でほどく。</div>
+    <a class="back" href="../../">← Bodywork Summary Libraryへ戻る</a>
+    <footer>Bodywork Summary Library｜2026-07-25</footer>
+  </main>
+  <script>
+    const items = [...document.querySelectorAll('#accordion details')];
+    document.getElementById('open-all').addEventListener('click', () => items.forEach((item) => { item.open = true; }));
+    document.getElementById('close-all').addEventListener('click', () => items.forEach((item) => { item.open = false; }));
+  </script>
+</body>
+</html>
