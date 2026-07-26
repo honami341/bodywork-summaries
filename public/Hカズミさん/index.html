@@ -19,13 +19,14 @@
     .lead{margin:14px 0 27px;color:var(--muted)}
     .record{display:block;padding:19px;border:1px solid var(--line);border-radius:20px;background:var(--panel);color:var(--ink);text-decoration:none;box-shadow:var(--shadow);transition:transform .18s ease,border-color .18s ease}
     .record:hover{transform:translateY(-2px);border-color:rgba(201,138,61,.7)}
-    .record:focus-visible{outline:3px solid rgba(201,138,61,.28);outline-offset:3px}
+    .record:focus-visible,.back:focus-visible{outline:3px solid rgba(201,138,61,.28);outline-offset:3px}
     .meta{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:10px}
     .meta span{padding:5px 9px;border-radius:999px;background:var(--soft);color:#6e4a1e;font-size:.72rem;font-weight:800}
     h2{margin:0;font-size:1.08rem;line-height:1.5}
     .record p{margin:7px 0 0;color:var(--muted);font-size:.86rem}
     .arrow{display:inline-flex;margin-top:13px;color:var(--amber-dark);font-size:.82rem;font-weight:850}
     .note{margin-top:22px;padding:13px 15px;border-left:4px solid var(--amber);border-radius:0 14px 14px 0;background:rgba(255,253,248,.82);color:#5d544a;font-size:.8rem}
+    .back{display:inline-flex;margin-top:21px;color:var(--amber-dark);font-size:.82rem;font-weight:850;text-decoration:none}
     footer{margin-top:30px;color:var(--muted);font-size:.72rem;text-align:center}
     @media(prefers-reduced-motion:reduce){.record{transition:none}}
   </style>
@@ -44,6 +45,7 @@
     </a>
 
     <div class="note">公開画面には個人名や未加工の文字起こしを表示していません。このページは検索エンジン向けに noindex を指定しています。</div>
+    <a class="back" href="../">← Summary Libraryへ戻る</a>
     <footer>Bodywork Session Records</footer>
   </main>
 </body>
