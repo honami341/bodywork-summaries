@@ -45,6 +45,10 @@ function validate(data, source) {
   if (!Array.isArray(cards) || cards.length < 1 || cards.length > 12) {
     fail("cards must contain 1-12 items");
   }
+  const resources = data.resources ?? [];
+  if (!Array.isArray(resources) || resources.length > 6) {
+    fail("resources must contain 0-6 items");
+  }
   return {
     shareId,
     label: requireText(data.label ?? "BODYWORK ADVICE", "label", 60),
@@ -52,6 +56,20 @@ function validate(data, source) {
     lead: requireText(data.lead, "lead", 400),
     note: requireText(data.note, "note", 600),
     footer: requireText(data.footer, "footer", 500),
+    resources: resources.map((resource, index) => {
+      const href = requireText(resource.href, `resources[${index}].href`, 400);
+      let url;
+      try {
+        url = new URL(href);
+      } catch {
+        fail(`resources[${index}].href must be a valid URL`);
+      }
+      if (url.protocol !== "https:") fail(`resources[${index}].href must use https`);
+      return {
+        label: requireText(resource.label, `resources[${index}].label`, 100),
+        href: url.href
+      };
+    }),
     cards: cards.map((card, index) => {
       const points = card.points;
       if (!Array.isArray(points) || points.length < 1 || points.length > 6) {
@@ -92,6 +110,7 @@ function html(data) {
 <title>${data.title.replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;")}</title>
 <style>
 :root{--paper:#f7f4ee;--panel:#fffdf8;--ink:#2e2a25;--muted:#766d63;--line:#ded5c9}*{box-sizing:border-box}body{margin:0;min-height:100vh;color:var(--ink);background:radial-gradient(circle at 8% 0%,rgba(201,138,61,.15),transparent 28rem),var(--paper);font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic","Noto Sans JP",sans-serif;line-height:1.75}button{font:inherit}.page{width:min(100%,820px);margin:0 auto;padding:28px 15px 48px}.hero{text-align:center;margin-bottom:20px}.label{display:inline-block;padding:6px 16px;margin-bottom:12px;border:1px solid var(--line);border-radius:999px;background:var(--panel);font-size:.72rem;font-weight:850;letter-spacing:.12em}h1{margin:0 0 10px;font-family:"Yu Mincho","Hiragino Mincho ProN",serif;font-size:clamp(1.7rem,6vw,2.7rem);line-height:1.35}.lead{max-width:650px;margin:0 auto;color:var(--muted);font-size:.9rem}.note,.footer{margin:18px 0;padding:15px 16px;background:rgba(255,253,248,.9);border:1px solid var(--line);border-radius:16px}.note p,.footer p{margin:0;color:#5e574f;font-size:.84rem}.cards{display:grid;gap:13px}.card{--color:#c98a3d;display:block;width:100%;padding:0;text-align:left;color:inherit;background:var(--panel);border:1px solid var(--line);border-radius:19px;box-shadow:0 8px 22px rgba(65,49,32,.06);overflow:hidden;cursor:pointer}.card-head{display:grid;grid-template-columns:48px 1fr 24px;gap:11px;align-items:center;padding:14px}.mark{display:grid;width:46px;height:46px;place-items:center;border-radius:14px;color:var(--color);background:color-mix(in srgb,var(--color) 14%,white);font-weight:900}.tag{display:inline-block;margin-bottom:3px;color:var(--color);font-size:.66rem;font-weight:900;letter-spacing:.08em}.card h2{margin:0;font-size:1rem;line-height:1.45}.arrow{color:var(--color);text-align:center;transition:transform .18s}.card[aria-expanded="true"] .arrow{transform:rotate(180deg)}.card-body{display:none;padding:0 16px 17px 73px}.card[aria-expanded="true"] .card-body{display:block}.summary{margin:0 0 13px;color:var(--muted);font-size:.86rem}.flow{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin-bottom:14px}.chip{padding:5px 8px;border:1px solid color-mix(in srgb,var(--color) 35%,var(--line));border-radius:999px;background:#fff;font-size:.72rem;font-weight:800}.flow-arrow{color:var(--color);font-weight:900}.points{display:grid;gap:9px}.point{display:grid;grid-template-columns:24px 1fr;gap:9px}.num{display:grid;width:24px;height:24px;place-items:center;border-radius:50%;color:var(--color);background:color-mix(in srgb,var(--color) 14%,white);font-size:.72rem;font-weight:900}.point p{margin:0;font-size:.87rem}.tip{margin-top:14px;padding:12px 13px;border-left:4px solid var(--color);border-radius:12px;background:color-mix(in srgb,var(--color) 8%,white)}.tip strong{display:block;color:var(--color);font-size:.76rem}.tip p{margin:3px 0 0;font-size:.82rem}.footer strong{color:#4f463d}@media(max-width:540px){.card-body{padding:0 14px 16px}.card-head{grid-template-columns:43px 1fr 22px}.mark{width:41px;height:41px}}@media(prefers-reduced-motion:reduce){.arrow{transition:none}}
+.resources{margin:18px 0;padding:16px;background:rgba(255,253,248,.94);border:1px solid var(--line);border-radius:16px}.resources h2{margin:0 0 10px;font-size:.92rem}.resource-links{display:flex;flex-wrap:wrap;gap:9px}.resource-link{display:inline-flex;align-items:center;padding:9px 13px;border-radius:999px;background:#c98a3d;color:#fff;font-size:.8rem;font-weight:850;text-decoration:none}.resource-link::after{margin-left:7px;content:"↗"}@media(max-width:540px){.resource-links{display:grid}.resource-link{justify-content:space-between}}
 </style>
 </head>
 <body>
@@ -99,6 +118,7 @@ function html(data) {
   <header class="hero"><div class="label" id="label"></div><h1 id="title"></h1><p class="lead" id="lead"></p></header>
   <section class="note"><p id="note"></p></section>
   <section class="cards" id="cards" aria-label="アドバイスサマリー"></section>
+  <section class="resources" id="resources" hidden><h2>体操図鑑で動きを確認</h2><div class="resource-links" id="resourceLinks"></div></section>
   <footer class="footer"><p><strong id="footer"></strong></p></footer>
 </main>
 <script>
@@ -110,6 +130,18 @@ document.getElementById("note").textContent=data.note;
 document.getElementById("footer").textContent=data.footer;
 const cards=document.getElementById("cards");
 const el=(tag,className,text)=>{const node=document.createElement(tag);if(className)node.className=className;if(text!==undefined)node.textContent=text;return node};
+if(data.resources.length){
+  const resources=document.getElementById("resources");
+  const resourceLinks=document.getElementById("resourceLinks");
+  data.resources.forEach(resource=>{
+    const link=el("a","resource-link",resource.label);
+    link.href=resource.href;
+    link.target="_blank";
+    link.rel="noopener noreferrer";
+    resourceLinks.append(link);
+  });
+  resources.hidden=false;
+}
 data.cards.forEach((card,index)=>{
   const button=el("button","card");
   button.type="button";
