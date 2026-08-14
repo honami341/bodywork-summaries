@@ -10,6 +10,18 @@
 4. Actionsの `Publish summary from inbox` が完了するまで待つ。
 5. `https://honami341.github.io/bodywork-summaries/s/<shareId>/` を共有する。
 
+## 完了判定
+
+公開用アドバイスサマリーは、ローカルでJSONやHTMLを作っただけでは完了としない。ユーザが公開を求めている場合は、次をすべて確認してから完了とする。
+
+1. 公開JSONにクライアント番号、通称、実名、Speaker表示が含まれない。
+2. `scripts/render-summary.mjs` でローカル生成が成功する。
+3. 対象JSONだけをcommitして `main` へpushする。
+4. `Publish summary from inbox` の成功を確認する。
+5. 共有URLがHTTP 200で開き、対象タイトルと本文が表示される。
+
+上記が未確認の間は、「ローカル作成済み・未公開」と報告し、タスクを閉じない。
+
 ## 公開してはいけないもの
 
 - 文字起こし原文
