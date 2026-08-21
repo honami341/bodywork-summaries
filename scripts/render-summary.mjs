@@ -54,7 +54,9 @@ function validate(data, source) {
     label: requireText(data.label ?? "BODYWORK ADVICE", "label", 60),
     title: requireText(data.title, "title", 120),
     lead: requireText(data.lead, "lead", 400),
-    note: requireText(data.note, "note", 600),
+    note: typeof data.note === "string" && data.note.trim()
+      ? requireText(data.note, "note", 600)
+      : "",
     footer: requireText(data.footer, "footer", 500),
     resources: resources.map((resource, index) => {
       const href = requireText(resource.href, `resources[${index}].href`, 400);
@@ -119,7 +121,7 @@ function html(data) {
 <body>
 <main class="page">
   <header class="hero"><div class="label" id="label"></div><h1 id="title"></h1><p class="lead" id="lead"></p></header>
-  <section class="note"><p id="note"></p></section>
+  <section class="note" id="noteBlock" hidden><p id="note"></p></section>
   <section class="cards" id="cards" aria-label="アドバイスサマリー"></section>
   <section class="resources" id="resources" hidden><h2>体操図鑑で動きを確認</h2><div class="resource-links" id="resourceLinks"></div></section>
   <footer class="footer"><p><strong id="footer"></strong></p></footer>
@@ -129,7 +131,10 @@ const data=${safeJson(data)};
 document.getElementById("label").textContent=data.label;
 document.getElementById("title").textContent=data.title;
 document.getElementById("lead").textContent=data.lead;
-document.getElementById("note").textContent=data.note;
+if(data.note){
+  document.getElementById("note").textContent=data.note;
+  document.getElementById("noteBlock").hidden=false;
+}
 document.getElementById("footer").textContent=data.footer;
 const cards=document.getElementById("cards");
 const el=(tag,className,text)=>{const node=document.createElement(tag);if(className)node.className=className;if(text!==undefined)node.textContent=text;return node};
