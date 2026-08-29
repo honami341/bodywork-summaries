@@ -1,139 +1,11 @@
-import fs from "node:fs";
-import path from "node:path";
-
-const args = process.argv.slice(2);
-const valueAfter = (name) => {
-  const index = args.indexOf(name);
-  return index >= 0 ? args[index + 1] : undefined;
-};
-
-const forbiddenKeys = new Set([
-  "name", "realname", "fullname", "clientname", "phone", "email", "address",
-  "transcript", "rawtranscript", "medicalhistory", "diagnosis"
-]);
-
-function fail(message) {
-  throw new Error(message);
-}
-
-function assertNoForbiddenKeys(value, trail = "root") {
-  if (Array.isArray(value)) {
-    value.forEach((item, index) => assertNoForbiddenKeys(item, `${trail}[${index}]`));
-    return;
-  }
-  if (!value || typeof value !== "object") return;
-  for (const [key, child] of Object.entries(value)) {
-    const normalized = key.toLowerCase().replace(/[^a-z]/g, "");
-    if (forbiddenKeys.has(normalized)) fail(`Forbidden field "${key}" at ${trail}`);
-    assertNoForbiddenKeys(child, `${trail}.${key}`);
-  }
-}
-
-function requireText(value, field, max = 500) {
-  if (typeof value !== "string" || !value.trim()) fail(`${field} must be non-empty text`);
-  if (value.length > max) fail(`${field} exceeds ${max} characters`);
-  return value.trim();
-}
-
-function optionalImage(value, field) {
-  if (value == null) return null;
-  if (!value || typeof value !== "object" || Array.isArray(value)) fail(`${field} must be an object`);
-  const src = requireText(value.src, `${field}.src`, 180);
-  if (/^(?:[a-z]+:|\/|\\)/i.test(src) || src.includes("..") || !/^[a-zA-Z0-9][a-zA-Z0-9._/-]*$/.test(src)) {
-    fail(`${field}.src must be a safe relative asset path`);
-  }
-  return {
-    src,
-    alt: requireText(value.alt, `${field}.alt`, 180),
-    caption: typeof value.caption === "string" && value.caption.trim()
-      ? requireText(value.caption, `${field}.caption`, 240)
-      : ""
-  };
-}
-
-function validate(data, source) {
-  assertNoForbiddenKeys(data);
-  const shareId = requireText(data.shareId, "shareId", 64);
-  if (!/^[a-z0-9][a-z0-9-]{14,62}[a-z0-9]$/.test(shareId)) {
-    fail("shareId must be 16-64 lowercase letters, numbers, or hyphens");
-  }
-  const cards = data.cards;
-  if (!Array.isArray(cards) || cards.length < 1 || cards.length > 12) {
-    fail("cards must contain 1-12 items");
-  }
-  const resources = data.resources ?? [];
-  if (!Array.isArray(resources) || resources.length > 6) {
-    fail("resources must contain 0-6 items");
-  }
-  return {
-    shareId,
-    label: requireText(data.label ?? "BODYWORK ADVICE", "label", 60),
-    title: requireText(data.title, "title", 120),
-    lead: requireText(data.lead, "lead", 400),
-    heroImage: optionalImage(data.heroImage, "heroImage"),
-    note: typeof data.note === "string" && data.note.trim()
-      ? requireText(data.note, "note", 600)
-      : "",
-    footer: requireText(data.footer, "footer", 500),
-    resourcesTitle: typeof data.resourcesTitle === "string" && data.resourcesTitle.trim()
-      ? requireText(data.resourcesTitle, "resourcesTitle", 80)
-      : "体操図鑑で動きを確認",
-    resources: resources.map((resource, index) => {
-      const href = requireText(resource.href, `resources[${index}].href`, 400);
-      let url;
-      try {
-        url = new URL(href);
-      } catch {
-        fail(`resources[${index}].href must be a valid URL`);
-      }
-      if (url.protocol !== "https:") fail(`resources[${index}].href must use https`);
-      return {
-        label: requireText(resource.label, `resources[${index}].label`, 100),
-        href: url.href
-      };
-    }),
-    cards: cards.map((card, index) => {
-      const points = card.points;
-      if (!Array.isArray(points) || points.length < 1 || points.length > 6) {
-        fail(`cards[${index}].points must contain 1-6 items`);
-      }
-      const flow = card.flow ?? [];
-      if (!Array.isArray(flow) || flow.length > 6) fail(`cards[${index}].flow must contain 0-6 items`);
-      const color = requireText(card.color ?? "#c98a3d", `cards[${index}].color`, 20);
-      if (!/^#[0-9a-fA-F]{6}$/.test(color)) fail(`cards[${index}].color must be a hex color`);
-      return {
-        id: index + 1,
-        section: typeof card.section === "string" && card.section.trim()
-          ? requireText(card.section, `cards[${index}].section`, 40)
-          : "",
-        mark: requireText(card.mark ?? String(index + 1).padStart(2, "0"), `cards[${index}].mark`, 8),
-        tag: requireText(card.tag, `cards[${index}].tag`, 24),
-        color,
-        title: requireText(card.title, `cards[${index}].title`, 100),
-        summary: requireText(card.summary, `cards[${index}].summary`, 400),
-        image: optionalImage(card.image, `cards[${index}].image`),
-        flow: flow.map((item, flowIndex) => requireText(item, `cards[${index}].flow[${flowIndex}]`, 40)),
-        points: points.map((item, pointIndex) => requireText(item, `cards[${index}].points[${pointIndex}]`, 240)),
-        tip: requireText(card.tip, `cards[${index}].tip`, 400)
-      };
-    }),
-    source
-  };
-}
-
-function safeJson(value) {
-  return JSON.stringify(value).replaceAll("<", "\\u003c").replaceAll(">", "\\u003e").replaceAll("&", "\\u0026");
-}
-
-function html(data) {
-  return `<!doctype html>
+<!doctype html>
 <html lang="ja">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
 <meta name="theme-color" content="#f7f4ee">
-<title>${data.title.replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;")}</title>
+<title>横向き寝の高さを選び、左の首〜肩をゆるめる</title>
 <style>
 :root{--paper:#f7f4ee;--panel:#fffdf8;--ink:#2e2a25;--muted:#766d63;--line:#ded5c9}*{box-sizing:border-box}body{margin:0;min-height:100vh;color:var(--ink);background:radial-gradient(circle at 8% 0%,rgba(201,138,61,.15),transparent 28rem),var(--paper);font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic","Noto Sans JP",sans-serif;line-height:1.75}button{font:inherit}.page{width:min(100%,820px);margin:0 auto;padding:28px 15px 48px}.hero{text-align:center;margin-bottom:20px}.label{display:inline-block;padding:6px 16px;margin-bottom:12px;border:1px solid var(--line);border-radius:999px;background:var(--panel);font-size:.72rem;font-weight:850;letter-spacing:.12em}h1{margin:0 0 10px;font-family:"Yu Mincho","Hiragino Mincho ProN",serif;font-size:clamp(1.7rem,6vw,2.7rem);line-height:1.35}.lead{max-width:650px;margin:0 auto;color:var(--muted);font-size:.9rem}.note,.footer{margin:18px 0;padding:15px 16px;background:rgba(255,253,248,.9);border:1px solid var(--line);border-radius:16px}.note p,.footer p{margin:0;color:#5e574f;font-size:.84rem}.cards{display:grid;gap:13px}.section-title{margin:13px 3px 0;padding:7px 12px;border-left:5px solid #c98a3d;color:#4f463d;font-size:.9rem;font-weight:900;letter-spacing:.08em}.section-title:first-child{margin-top:0}.card{--color:#c98a3d;display:block;width:100%;padding:0;text-align:left;color:inherit;background:var(--panel);border:1px solid var(--line);border-radius:19px;box-shadow:0 8px 22px rgba(65,49,32,.06);overflow:hidden;cursor:pointer}.card-head{display:grid;grid-template-columns:48px 1fr 24px;gap:11px;align-items:center;padding:14px}.mark{display:grid;width:46px;height:46px;place-items:center;border-radius:14px;color:var(--color);background:color-mix(in srgb,var(--color) 14%,white);font-weight:900}.tag{display:inline-block;margin-bottom:3px;color:var(--color);font-size:.66rem;font-weight:900;letter-spacing:.08em}.card h2{margin:0;font-size:1rem;line-height:1.45}.arrow{color:var(--color);text-align:center;transition:transform .18s}.card[aria-expanded="true"] .arrow{transform:rotate(180deg)}.card-body{display:none;padding:0 16px 17px 73px}.card[aria-expanded="true"] .card-body{display:block}.summary{margin:0 0 13px;color:var(--muted);font-size:.86rem}.flow{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin-bottom:14px}.chip{padding:5px 8px;border:1px solid color-mix(in srgb,var(--color) 35%,var(--line));border-radius:999px;background:#fff;font-size:.72rem;font-weight:800}.flow-arrow{color:var(--color);font-weight:900}.points{display:grid;gap:9px}.point{display:grid;grid-template-columns:24px 1fr;gap:9px}.num{display:grid;width:24px;height:24px;place-items:center;border-radius:50%;color:var(--color);background:color-mix(in srgb,var(--color) 14%,white);font-size:.72rem;font-weight:900}.point p{margin:0;font-size:.87rem}.tip{display:block;margin-top:14px;padding:12px 13px;border-left:4px solid var(--color);border-radius:12px;background:color-mix(in srgb,var(--color) 8%,white)}.tip strong{display:block;color:var(--color);font-size:.76rem}.tip p{margin:3px 0 0;font-size:.82rem}.footer strong{color:#4f463d}@media(max-width:540px){.card-body{padding:0 14px 16px}.card-head{grid-template-columns:43px 1fr 22px}.mark{width:41px;height:41px}}@media(prefers-reduced-motion:reduce){.arrow{transition:none}}
 .resources{margin:18px 0;padding:16px;background:rgba(255,253,248,.94);border:1px solid var(--line);border-radius:16px}.resources h2{margin:0 0 10px;font-size:.92rem}.resource-links{display:flex;flex-wrap:wrap;gap:9px}.resource-link{display:inline-flex;align-items:center;padding:9px 13px;border-radius:999px;background:#c98a3d;color:#fff;font-size:.8rem;font-weight:850;text-decoration:none}.resource-link::after{margin-left:7px;content:"↗"}@media(max-width:540px){.resource-links{display:grid}.resource-link{justify-content:space-between}}
@@ -149,7 +21,7 @@ function html(data) {
   <footer class="footer"><p><strong id="footer"></strong></p></footer>
 </main>
 <script>
-const data=${safeJson(data)};
+const data={"shareId":"side-sleep-pillow-neck-scapula-8e4c2a71","label":"BODYWORK ADVICE｜首・肩と眠り","title":"横向き寝の高さを選び、左の首〜肩をゆるめる","lead":"横向きで首が傾きすぎない寝床をつくり、左の首から肩甲骨上を気持ちよく伸ばします。寝る向きの偏りも、ベッドの使い方から小さく変えて比べてみます。","heroImage":{"src":"pillow-height-towels.png","alt":"横向き寝で枕が低い場合、高い場合、タオルで首がすっと座る高さへ調整した場合の比較図","caption":"横向きでは肩幅の分だけ、仰向けとは違う高さが必要になります。タオルで少しずつ選べる形にします。"},"note":"今回のテーマは、左の首〜肩甲骨上のまとまりをほどくことと、横向き寝の環境をその日の身体に合わせて選べるようにすることです。","footer":"毎晩同じ方法に固定せず、その日の寝やすさ、起きた時の左首〜肩、左右それぞれの向きやすさを比べ、合う方法だけ残していきます。","resourcesTitle":"今回の参考資料","resources":[{"label":"厚生労働省 e-ヘルスネット｜枕と寝姿勢","href":"https://kennet.mhlw.go.jp/information/information/heart/k-01-003"},{"label":"CUH｜首の運動と肩甲挙筋ストレッチ","href":"https://www.cuh.nhs.uk/patient-information/neck-exercises-and-advice/"}],"cards":[{"id":1,"section":"今回の見取り図","mark":"観1","tag":"左首〜肩甲骨上","color":"#557D36","title":"左側に集まった張りを、二つの方向から見直す","summary":"今回は右肩よりも、左の首から肩甲骨上にまとまりを感じました。横向き寝での頭の傾きと、寝る向きの偏りを仮説にし、寝床とストレッチの両方から変化を見ます。","image":null,"flow":["寝床の高さ","首の傾き","左首〜肩甲骨上","翌朝に比較"],"points":["横向きになった時、頭が右へ倒れすぎていないかを枕の高さから見直します。","左の首から肩甲骨上は、強く動かすより、気持ちよい伸びが入る方向を探します。","一度に全部変えず、枕の高さ・寝る向き・ストレッチを一つずつ試します。"],"tip":"変化の目印は、朝の左首〜肩のまとまり、首の向きやすさ、横向きになった時の落ち着きです。"},{"id":2,"section":"横向き寝の工夫","mark":"寝1","tag":"高さを選べる枕元","color":"#C08B3E","title":"タオル2〜3枚とクッションを、枕元に用意する","summary":"仰向け用の枕だけで横向きになると、肩幅の分だけ頭が下がりやすくなります。買い替える前に、折ったタオルや小さなクッションで高さを足して比べます。","image":null,"flow":["横向きになる","高さを1枚足す","首の座りを比べる","合う高さを残す"],"points":["折り方を変えられるタオルを2〜3枚、枕の近くに置いておきます。","横向きになったら、枕の下や枕カバーの内側へ1枚ずつ足します。","首が下へ落ちる感じと、上へ押し上げられる感じの中間を探します。","夜中でも取りやすい位置に置き、その時の寝方に合わせて使い分けます。"],"tip":"高さの正解を決めるより、横向きになった時に首が左右へ折れず、『すっと座る』高さをその日に選びます。"},{"id":3,"section":"横向き寝の工夫","mark":"寝2","tag":"ベッドの向きを使う","color":"#238E9A","title":"枕を反対側へ置き、寝る左右を変えてみる","summary":"壁へ向いて寝ると落ち着く習慣をそのまま使い、枕をベッドの反対側へ移します。壁との位置関係が変わることで、いつもと反対側を上にして寝やすくなるかを試します。","image":{"src":"sleep-direction-experiment.png","alt":"枕をベッドの反対側へ移し、左右の横向き寝のしやすさを比べる図","caption":"向きを矯正するのではなく、壁との関係を変えて反対向きも選びやすくなるかを見る実験です。"},"flow":["いつもの頭位置","枕を反対へ","壁に向いて横になる","左右を比較"],"points":["いつもの寝方で、どちら側を上にしている時間が多そうかを確認します。","枕を足元側へ移し、頭と足の位置を反対にして寝てみます。","壁へ向く落ち着きは保ったまま、反対側を上にして横向きになりやすいかを比べます。","翌朝の首と肩の感じも含め、続けたい方を選びます。"],"tip":"左右を均等にすることを目標にせず、同じ側だけに固定されにくい環境になるかを観察します。"},{"id":4,"section":"首〜肩甲骨の復習","mark":"体1","tag":"左肩甲挙筋周辺","color":"#A7C91B","title":"左手を後ろへ回し、首を前から右へ傾ける","summary":"左腕を背中側へ置いて左肩を落ち着かせ、首を軽く前へ傾けてから右へ。左の首から肩甲骨上に、気持ちよい伸びが続く位置を探します。","image":{"src":"left-neck-scapula-stretch.png","alt":"左手を背中側に置き、首を軽く前へ傾けてから右へ傾ける二段階のストレッチ図","caption":"右手は引っぱるためではなく、動く方向をそっと案内するために添えます。"},"flow":["左手を後ろへ","首を軽く前へ","そこから右へ","右手をそっと添える"],"points":["座った姿勢で、左手を背中側へ回します。","まず首を軽く前へ傾け、うなじが長くなる方向を作ります。","その位置から頭を右へ傾け、左の首から肩甲骨上の伸びを探します。","右手は頭へ軽く添え、強く引かずに方向だけを案内します。","伸びを大きくしようとせず、気持ちよい範囲で戻ります。"],"tip":"この体操は深さを競いません。左首〜肩甲骨上に心地よい伸びが入る所を見つけたら、そこで十分です。"}],"source":"summary-inbox\\side-sleep-pillow-neck-scapula-8e4c2a71.json"};
 document.getElementById("label").textContent=data.label;
 document.getElementById("title").textContent=data.title;
 document.getElementById("lead").textContent=data.lead;
@@ -221,28 +93,4 @@ data.cards.forEach((card,index)=>{
 });
 </script>
 </body>
-</html>`;
-}
-
-function renderFile(inputPath, outputDir) {
-  const raw = fs.readFileSync(inputPath, "utf8");
-  const data = validate(JSON.parse(raw), inputPath);
-  const targetDir = outputDir ?? path.join("public", "s", data.shareId);
-  fs.mkdirSync(targetDir, { recursive: true });
-  fs.writeFileSync(path.join(targetDir, "index.html"), html(data), "utf8");
-  console.log(`${inputPath} -> ${targetDir}/index.html`);
-}
-
-if (args.includes("--all")) {
-  const inbox = "summary-inbox";
-  const files = fs.existsSync(inbox)
-    ? fs.readdirSync(inbox).filter((name) => name.endsWith(".json")).sort()
-    : [];
-  if (!files.length) console.log("No summary JSON files found; existing public site will be deployed unchanged.");
-  for (const file of files) renderFile(path.join(inbox, file));
-} else {
-  const input = valueAfter("--input");
-  const output = valueAfter("--output");
-  if (!input) fail("Use --all or --input <json> [--output <dir>]");
-  renderFile(input, output);
-}
+</html>
