@@ -5,6 +5,7 @@ on:
     branches: [main]
     paths:
       - "summary-inbox/*.json"
+      - "static-summaries/workshop-chest-spine-link-7c9e4b21/index.html"
       - "scripts/render-summary.mjs"
       - ".github/workflows/publish-summary.yml"
   workflow_dispatch:
@@ -35,6 +36,11 @@ jobs:
 
       - name: Validate and render summaries
         run: node scripts/render-summary.mjs --all
+
+      - name: Include reviewed workshop summary
+        run: |
+          mkdir -p public/s/workshop-chest-spine-link-7c9e4b21
+          cp static-summaries/workshop-chest-spine-link-7c9e4b21/index.html public/s/workshop-chest-spine-link-7c9e4b21/index.html
 
       - name: Configure Pages
         uses: actions/configure-pages@v5
