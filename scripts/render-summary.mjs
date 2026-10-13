@@ -93,11 +93,12 @@ function validate(data, source) {
       };
     }),
     cards: cards.map((card, index) => {
-      const points = card.points;
-      if (!Array.isArray(points) || points.length < 1 || points.length > 6) {
+      const textOnly = card.textOnly === true;
+      const points = card.points ?? [];
+      if (!Array.isArray(points) || points.length < (textOnly ? 0 : 1) || points.length > 6) {
         fail(`cards[${index}].points must contain 1-6 items`);
       }
-      const flow = card.flow ?? [];
+      const flow = textOnly ? [] : card.flow ?? [];
       if (!Array.isArray(flow) || flow.length > 6) fail(`cards[${index}].flow must contain 0-6 items`);
       const color = requireText(card.color ?? "#c98a3d", `cards[${index}].color`, 20);
       if (!/^#[0-9a-fA-F]{6}$/.test(color)) fail(`cards[${index}].color must be a hex color`);
@@ -111,10 +112,11 @@ function validate(data, source) {
         color,
         title: requireText(card.title, `cards[${index}].title`, 100),
         summary: requireText(card.summary, `cards[${index}].summary`, 400),
+        textOnly,
         image: optionalImage(card.image, `cards[${index}].image`),
         flow: flow.map((item, flowIndex) => requireText(item, `cards[${index}].flow[${flowIndex}]`, 40)),
         points: points.map((item, pointIndex) => requireText(item, `cards[${index}].points[${pointIndex}]`, 240)),
-        tip: requireText(card.tip, `cards[${index}].tip`, 400)
+        tip: textOnly ? "" : requireText(card.tip, `cards[${index}].tip`, 400)
       };
     }),
     source
@@ -206,6 +208,7 @@ data.cards.forEach((card,index)=>{
     });
     body.append(flow);
   }
+  if(!card.textOnly){
   const points=el("span","points");
   card.points.forEach((item,pointIndex)=>{
     const point=el("span","point");
@@ -215,6 +218,7 @@ data.cards.forEach((card,index)=>{
   const tip=el("span","tip");
   tip.append(el("strong","","扱い方"),el("p","",card.tip));
   body.append(points,tip);
+  }
   button.append(head,body);
   button.addEventListener("click",()=>button.setAttribute("aria-expanded",String(button.getAttribute("aria-expanded")!=="true")));
   cards.append(button);
