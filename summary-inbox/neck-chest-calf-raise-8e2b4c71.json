@@ -24,7 +24,12 @@
         "首だけで動かそうとせず、胸の動きと首の動きが連動する感覚を味わいます。",
         "胸をカチッと固めたときとの、動きやすさの違いを感じてみましょう。"
       ],
-      "tip": "胸の動きと首の動きが一緒についてくる感じを大切に。"
+      "tip": "胸の動きと首の動きが一緒についてくる感じを大切に。",
+      "image": {
+        "src": "sternum-frame.svg",
+        "alt": "胸骨バンザイの途中、手を胸元に添えた姿勢",
+        "caption": "参考：胸骨バンザイ。バンザイしきる手前で止めます。"
+      }
     },
     {
       "section": "首と胸の連動",
@@ -88,6 +93,14 @@
         "首もきれいに上へ伸びるポジションを感じてみましょう。"
       ],
       "tip": "形だけを作るよりも、内側から胸までつながる感覚を大事にします。"
+    }
+  ],
+  "resourcesTitle": "関連記事",
+  "resources": [
+    {
+      "label": "かかとを合わせて軸を通すカーフレイズ",
+      "href": "https://bodywork-engineering-site.vercel.app/library/mechanism/calf-raise",
+      "thumbnail": "https://bodywork-engineering-site.vercel.app/library/calf-raise/thumbnail.png"
     }
   ]
 }
