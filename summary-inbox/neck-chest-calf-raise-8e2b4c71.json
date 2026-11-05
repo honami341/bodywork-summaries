@@ -25,9 +25,8 @@
         "胸をカチッと固めたときとの、動きやすさの違いを感じてみましょう。"
       ],
       "tip": "胸の動きと首の動きが一緒についてくる感じを大切に。",
-      "image": {
-        "src": "sternum-frame.svg",
-        "alt": "胸骨バンザイの途中、手を胸元に添えた姿勢",
+      "video": {
+        "src": "https://bodywork-engineering-site.vercel.app/exercise-media/library/sternum-banzai.mp4",
         "caption": "参考：胸骨バンザイ。バンザイしきる手前で止めます。"
       }
     },
