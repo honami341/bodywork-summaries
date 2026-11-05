@@ -122,7 +122,9 @@ function validate(data, source) {
         video: card.video ? (() => {
           const src = new URL(requireText(card.video.src, `cards[${index}].video.src`, 400));
           if (src.protocol !== "https:") fail(`cards[${index}].video.src must use https`);
-          return { src: src.href, caption: requireText(card.video.caption, `cards[${index}].video.caption`, 240) };
+          const pauseAt = card.video.pauseAt;
+          if (pauseAt != null && (typeof pauseAt !== "number" || !Number.isFinite(pauseAt) || pauseAt <= 0)) fail(`cards[${index}].video.pauseAt must be a positive number`);
+          return { src: src.href, caption: requireText(card.video.caption, `cards[${index}].video.caption`, 240), pauseAt: pauseAt ?? null };
         })() : null,
         flow: flow.map((item, flowIndex) => requireText(item, `cards[${index}].flow[${flowIndex}]`, 40)),
         points: points.map((item, pointIndex) => requireText(item, `cards[${index}].points[${pointIndex}]`, 240)),
@@ -239,6 +241,17 @@ data.cards.forEach((card,index)=>{
     const video=el("video");video.src=card.video.src;video.controls=true;video.playsInline=true;video.preload="metadata";
     video.addEventListener("click",event=>event.stopPropagation());
     video.addEventListener("keydown",event=>event.stopPropagation());
+    if(card.video.pauseAt != null){
+      let hasPaused=false;
+      video.addEventListener("timeupdate",()=>{
+        if(!hasPaused && video.currentTime >= card.video.pauseAt){
+          hasPaused=true;
+          video.pause();
+          video.currentTime=card.video.pauseAt;
+        }
+      });
+      video.addEventListener("ended",()=>{hasPaused=false});
+    }
     figure.append(video,el("figcaption","",card.video.caption));
     body.append(figure);
   }
